@@ -1,0 +1,270 @@
+@import "../variables";
+
+.wrapper {
+  display: flex;
+  justify-content: flex-start;
+  padding-top: 50px;
+  flex-direction: column;
+}
+.collapsible {
+  max-width: 450px;
+  // overflow: hidden;
+  font-weight: 500;
+  margin-bottom: 30px;
+}
+.collapsible input[type="checkbox"] {
+  display: none;
+}
+input.as {
+  display: inline-block !important;
+  width: 5% !important;
+}
+.collapsible label.collapsibleLabel {
+  position: relative;
+  font-weight: 600;
+  background: #fff;
+  box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.1), 0 4px 11px 0 rgba(0, 0, 0, 0.08);
+  display: block;
+  margin-bottom: 10px;
+  cursor: pointer;
+  padding: 15px 35px;
+  border-radius: 4px;
+  z-index: 1;
+}
+.collapsible label.collapsibleLabel:after {
+  content: "";
+  position: absolute;
+  left: 10px;
+  top: 15px;
+  width: 18px;
+  height: 18px;
+  background: url("./arrow.svg") no-repeat 0 0;
+  transition: all 0.3s ease;
+  transform: rotate(270deg);
+}
+.collapsible input:checked + label:after {
+  transform: rotate(180deg);
+}
+
+.collapsible-text {
+  max-height: 1px;
+  overflow: auto;
+  border-radius: 4px;
+  line-height: 1.4;
+  position: relative;
+  top: -100%;
+  opacity: 0.5;
+  transition: all 0.3s ease;
+}
+.collapsible input[type="checkbox"]:checked ~ .collapsible-text {
+  max-height: 300px;
+  padding-bottom: 25px;
+  background-color: #ddd;
+  box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.1), 0 4px 11px 0 rgba(0, 0, 0, 0.08);
+  top: 0;
+  opacity: 1;
+  padding: 10px;
+}
+.collapsible-text h2 {
+  margin-bottom: 10px;
+  padding: 15px 15px 0;
+}
+.collapsible-text p {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.container {
+  .AppointmentBooking {
+    width: 85%;
+    margin: auto;
+    padding: 10px;
+    .wrapper {
+      .popup {
+        padding: 10px 20px;
+        border: 1px solid #437ac7;
+        background-color: #fff;
+        color: #000;
+        font-weight: 600;
+        font-size: 14px;
+        width: 300px;
+        margin: auto;
+      }
+      .collapsible {
+        .collapsible-text {
+          .row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-direction: row;
+            flex-wrap: wrap;
+            margin-bottom: 5%;
+            &:last-of-type {
+              margin-bottom: 0;
+            }
+          }
+          select {
+            width: 100%;
+            padding: 5px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-weight: 600;
+          }
+          p {
+            font-size: 14px;
+            font-weight: 600;
+            margin: 0;
+          }
+          input {
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #555;
+            width: 80%;
+          }
+          label {
+            font-size: 13px;
+            font-weight: 600;
+          }
+        }
+      }
+      > button {
+        background-color: #003580;
+        padding: 8px 15px;
+        color: #fff;
+        border-radius: 3px;
+        border: 1px solid #003580;
+        cursor: pointer;
+        &:hover {
+          background-color: #072958;
+          border: 1px solid #072958;
+        }
+      }
+    }
+    > button {
+      background-color: #003580;
+      padding: 8px 15px;
+      color: #fff;
+      border-radius: 3px;
+      border: 1px solid #003580;
+      cursor: pointer;
+      &:hover {
+        background-color: #072958;
+        border: 1px solid #072958;
+      }
+    }
+    .drugUpload {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      flex-direction: row;
+      margin: 50px;
+      border: 1px solid #437ac7;
+      padding: 10px;
+      width: 60%;
+      > div {
+        max-width:100%;
+        flex-basis: 100%;
+        .image {
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            margin-left: 20px;
+          }
+        }
+      }
+    }
+    .info {
+      ul {
+        display: flex;
+        justify-content: flex-start;
+        flex-direction: column;
+        li {
+          max-width: 100%;
+          flex-basis: 100%;
+          margin-bottom: 2%;
+          div {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            h4 {
+              margin: 0 10px;
+            }
+          }
+          span {
+            font-size: 14px;
+          }
+        }
+      }
+    }
+  }
+}
+
+/* Start Media Query */
+/* Extra small devices (phones, 600px and down) */
+@media only screen and ($ExtraSmallDevices) {
+  .container {
+    .AppointmentBooking {
+      button {
+        width: 100%;
+      }
+      .drugUpload {
+        width: 100%;
+      }
+    }
+  }
+}
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and ($SmallDevices) {
+  .container {
+    .AppointmentBooking {
+      button {
+        width: 70%;
+      }
+      .drugUpload {
+        width: 100%;
+      }
+    }
+  }
+}
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and ($MediumDevices) {
+  .container {
+    .AppointmentBooking {
+      button {
+        width: 60%;
+      }
+      .drugUpload {
+        width: 60%;
+      }
+    }
+  }
+}
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and ($LargeDevices) {
+  .container {
+    .AppointmentBooking {
+      button {
+        width: 40%;
+      }
+      .drugUpload {
+        width: 60%;
+      }
+    }
+  }
+}
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and ($ExtraLargeDevices) {
+  .container {
+    .AppointmentBooking {
+      button {
+        width: 35%;
+      }
+      .drugUpload {
+        width: 60%;
+      }
+    }
+  }
+}

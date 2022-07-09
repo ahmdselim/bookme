@@ -1,0 +1,113 @@
+@import "../variables";
+.container {
+  .setting {
+    width: 85%;
+    margin: auto;
+    ul {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      flex-direction: row;
+      flex-wrap: wrap;
+      margin: 0;
+      padding: 0;
+
+      li {
+        max-width: 45%;
+        flex-basis: 45%;
+        margin-bottom: 10px;
+        padding: 20px;
+        border: 1px solid #e6e6e6;
+        border-radius: 3px;
+        > div {
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          flex-direction: row;
+          svg {
+            margin-left: 10px;
+          }
+          h4 {
+            margin: 0;
+          }
+        }
+        p {
+          font-size: 14px;
+          margin: 0;
+        }
+        a {
+          font-size: 14px;
+          text-decoration: none;
+          color: #0f5bc6;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+}
+/* Start Media Query */
+/* Extra small devices (phones, 600px and down) */
+@media only screen and ($ExtraSmallDevices) {
+  .container {
+    .setting {
+      ul {
+        li {
+          max-width: 100%;
+          flex-basis: 100%;
+        }
+      }
+    }
+  }
+}
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and ($SmallDevices) {
+  .container {
+    .setting {
+      ul {
+        li {
+          max-width: 100%;
+          flex-basis: 100%;
+        }
+      }
+    }
+  }
+}
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and ($MediumDevices) {
+  .container {
+    .setting {
+      ul {
+        li {
+          max-width: 40%;
+          flex-basis: 40%;
+        }
+      }
+    }
+  }
+}
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and ($LargeDevices) {
+  .container {
+    .setting {
+      ul {
+        li {
+          max-width: 45%;
+          flex-basis: 45%;
+        }
+      }
+    }
+  }
+}
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and ($ExtraLargeDevices) {
+  .container {
+    .setting {
+      ul {
+        li {
+          max-width: 45%;
+          flex-basis: 45%;
+        }
+      }
+    }
+  }
+}
