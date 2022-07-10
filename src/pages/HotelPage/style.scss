@@ -1,3 +1,4 @@
+@import "../variables";
 .container {
   .hotel {
     width: 85%;
@@ -179,6 +180,291 @@
                 height: 15px;
                 object-fit: cover;
                 margin-left: 10px;
+              }
+            }
+          }
+        }
+        .drugBook {
+          .row {
+            button {
+              background-color: #0071c2;
+              border: 1px solid #0071c2;
+              color: #fff;
+              padding: 5px 10px;
+              font-size: 12px;
+              font-weight: 500;
+              border-radius: 3px;
+              cursor: pointer;
+              &:hover {
+                background-color: #095992;
+                border: 1px solid #095992;
+              }
+            }
+            form {
+              input {
+                margin-left: 10px;
+                width: 25.33%;
+              }
+
+              margin-bottom: 10px;
+            }
+            select {
+              margin-left: 10px;
+            }
+          }
+          .drugTable {
+            margin: 20px auto;
+            table {
+              border-collapse: collapse;
+              font-family: Tahoma, Geneva, sans-serif;
+              width: 100%;
+            }
+            table td {
+              padding: 15px;
+            }
+            table thead td {
+              background-color: #0071c2;
+              color: #ffffff;
+              font-weight: bold;
+              font-size: 13px;
+              border: 1px solid #0071c2;
+            }
+            table tbody td {
+              color: #636363;
+              border: 1px solid #dddfe1;
+            }
+            table tbody tr {
+              background-color: #f9fafb;
+            }
+            table tbody tr:nth-child(odd) {
+              background-color: #ffffff;
+            }
+          }
+          .InfoDrug {
+            ul {
+              display: flex;
+              justify-content: flex-start;
+              align-items: center;
+              flex-direction: row;
+              flex-wrap: wrap;
+              margin: 0;
+              padding: 0;
+              > li {
+                max-width: 50%;
+                flex-basis: 50%;
+                margin-bottom: 2%;
+                img {
+                  width: 20px;
+                  height: 20px;
+                  object-fit: cover;
+                }
+                span {
+                  font-size: 12px;
+                  font-weight: 600;
+                  margin-right: 10px;
+                }
+              }
+            }
+            ul.listInfo {
+              display: flex;
+              justify-content: flex-start;
+              align-items: flex-start;
+              flex-direction: column;
+              flex-wrap: wrap;
+              > li {
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                max-width: 100%;
+                flex-basis: 100%;
+                div {
+                  img {
+                    width: 15px;
+                    height: 15px;
+                    object-fit: cover;
+                  }span {
+                  font-weight: 600;
+                }
+                }
+                span {
+                  font-weight: 500;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+/* Start Media Query */
+/* Extra small devices (phones, 600px and down) */
+@media only screen and ($ExtraSmallDevices) {
+  .container {
+    .hotel {
+      .row {
+        .hotelSearch {
+          max-width: 100%;
+          flex-basis: 100%;
+        }
+        .hotelContent {
+          max-width: 100%;
+          flex-basis: 100%;
+          .drugDesc {
+            h3 {
+              font-size: 15px;
+            }
+            .items {
+              > div {
+                max-width: 50%;
+                flex-basis: 50%;
+                span {
+                  font-size: 13px;
+                  font-weight: 600;
+                }
+                svg {
+                  margin-left: 10px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and ($SmallDevices) {
+  .container {
+    .hotel {
+      .row {
+        .hotelSearch {
+          max-width: 100%;
+          flex-basis: 100%;
+        }
+        > .hotelContent {
+          max-width: 100%;
+          flex-basis: 100%;
+          .drugDesc {
+            h3 {
+              font-size: 15px;
+            }
+            .items {
+              > div {
+                max-width: 33.33%;
+                flex-basis: 33.33%;
+                span {
+                  font-size: 13px;
+                  font-weight: 600;
+                }
+                svg {
+                  margin-left: 10px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and ($MediumDevices) {
+  .container {
+    .hotel {
+      .row {
+        .hotelSearch {
+          max-width: 25%;
+          flex-basis: 25%;
+        }
+        .hotelContent {
+          max-width: 65%;
+          flex-basis: 65%;
+          .drugDesc {
+            h3 {
+              font-size: 15px;
+            }
+            .items {
+              > div {
+                max-width: 43.33%;
+                flex-basis: 43.33%;
+                span {
+                  font-size: 12px;
+                  font-weight: 600;
+                }
+                svg {
+                  margin-left: 10px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and ($LargeDevices) {
+  .container {
+    .hotel {
+      .row {
+        .hotelSearch {
+          max-width: 25%;
+          flex-basis: 25%;
+        }
+        .hotelContent {
+          max-width: 65%;
+          flex-basis: 65%;
+          .drugDesc {
+            h3 {
+              font-size: 16px;
+            }
+            .items {
+              > div {
+                max-width: 33.33%;
+                flex-basis: 33.33%;
+                span {
+                  font-size: 12px;
+                  font-weight: 600;
+                }
+                svg {
+                  margin-left: 10px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and ($ExtraLargeDevices) {
+  .container {
+    .hotel {
+      .row {
+        .hotelSearch {
+          max-width: 20%;
+          flex-basis: 20%;
+        }
+        .hotelContent {
+          max-width: 70%;
+          flex-basis: 70%;
+          .drugDesc {
+            h3 {
+              font-size: 16px;
+            }
+            .items {
+              > div {
+                max-width: 33.33%;
+                flex-basis: 33.33%;
+                span {
+                  font-size: 12px;
+                  font-weight: 600;
+                }
+                svg {
+                  margin-left: 10px;
+                }
               }
             }
           }

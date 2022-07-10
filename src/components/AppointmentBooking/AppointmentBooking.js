@@ -121,7 +121,7 @@ const AppointmentBooking = () => {
             dataList.data
               .filter((data) => data.country === countryDrug)
               .map((city) =>
-                city.cities.map((c) => <option value={c}>{c}</option>)
+                city.cities.map((c,i) => <option key={i} value={c}>{c}</option>)
               )
           ) : (
             <option>الرجاء اختيار دولتك لتظهر مدنك</option>
@@ -1248,7 +1248,7 @@ const AppointmentBooking = () => {
                       dataList.data
                         .filter((data) => data.country === countryDrug)
                         .map((city) =>
-                          city.cities.map((c) => <option value={c}>{c}</option>)
+                          city.cities.map((c,i) => <option key={i} value={c}>{c}</option>)
                         )
                     ) : (
                       <option>الرجاء اختيار دولتك لتظهر مدنك</option>

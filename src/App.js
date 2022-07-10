@@ -30,17 +30,17 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<HomePage />} exact />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<SignupPage />} />
-          <Route path="/search/:data" element={<SearchPage />} />
-          <Route path="/hotel/:id" element={<HotelPage />} />
-          <Route path="/join" element={<JoinPage />} />
-          <Route path="/mySetting" element={<SettingPage />} />
-          <Route path="/userSetting" element={<UserSettingPage />} />
-          <Route path="/myWishlist" element={<WishlistPage />} />
-          <Route path="/myReservations" element={<ReservationsPage />} />
+          <Route path="login" element={<LoginPage />} />
+          <Route path="signup" element={<SignupPage />} />
+          <Route path="search/:data" element={<SearchPage />} />
+          <Route path="hotel/:id" element={<HotelPage />} />
+          <Route path="join" element={<JoinPage />} />
+          <Route path="mySetting" element={<SettingPage />} />
+          <Route path="userSetting" element={<UserSettingPage />} />
+          <Route path="myWishlist" element={<WishlistPage />} />
+          <Route path="myReservations" element={<ReservationsPage />} />
           <Route
-            path="/AppointmentBooking"
+            path="AppointmentBooking"
             element={<AppointmentBookingPage />}
           />
         </Routes>

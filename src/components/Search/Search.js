@@ -19,6 +19,9 @@ const Search = () => {
           .includes(data.toLocaleLowerCase()) ||
         hotelData.data.countryDrug
           .toLocaleLowerCase()
+          .includes(data.toLocaleLowerCase()) ||
+        hotelData.data.cityDrug
+          .toLocaleLowerCase()
           .includes(data.toLocaleLowerCase())
     );
 
@@ -83,6 +86,9 @@ const Search = () => {
                       .toLocaleLowerCase()
                       .includes(destination.toLocaleLowerCase()) ||
                     data.data.countryDrug
+                      .toLocaleLowerCase()
+                      .includes(destination.toLocaleLowerCase()) ||
+                    data.data.cityDrug
                       .toLocaleLowerCase()
                       .includes(destination.toLocaleLowerCase())
                 )

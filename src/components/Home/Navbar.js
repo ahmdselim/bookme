@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import { AiOutlineQuestionCircle, AiOutlineHeart } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import avater from "../../images/avater.jpg";
@@ -42,11 +42,12 @@ const Navbar = () => {
                 <img src={avater} alt="avater" />
                 <span>
                   {userList && userList
-                    ? userList.map((person) =>
-                        person.data.name == ""
-                          ? "مستخدم جديد"
-                          : person.data.name
-                      )
+                    ? userList.map((person, i) => (
+                        <Fragment key={i}>
+                          {person.data.name} == "" ? "مستخدم جديد" :
+                          {person.data.name}
+                        </Fragment>
+                      ))
                     : "زائر"}
                 </span>
                 <div

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { auth } from "../../firebase/config";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -23,7 +23,6 @@ const Personal = () => {
   const [user, loading] = useAuthState(auth);
   const userList =
     users && users.filter((person) => person.data.uid === user.uid);
-  // console.log(userList.map((person) => person.data.uid));
   const handleClickName = () => {
     const updateUsername = () => {
       updateName(
@@ -143,11 +142,12 @@ const Personal = () => {
               <strong>الاسم </strong>
               <span>
                 {userList &&
-                  userList.map((person) =>
-                    person.data.name
-                      ? person.data.name
-                      : "الرجاء التعديل وكتابة اسمك"
-                  )}
+                  userList.map((person, i) => (
+                    <Fragment key={i}>
+                      {person.data.name} ? {person.data.name}: "الرجاء التعديل
+                      وكتابة اسمك"
+                    </Fragment>
+                  ))}
               </span>
               <button onClick={() => setOpen("name")}>تعديل</button>
             </>
@@ -162,11 +162,12 @@ const Personal = () => {
               <strong>الاسم المستعار</strong>
               <span>
                 {userList &&
-                  userList.map((person) =>
-                    person.data.nickName
-                      ? person.data.nickName
-                      : "الرجاء التعديل وكتابة اسمك المستعار"
-                  )}
+                  userList.map((person, i) => (
+                    <Fragment key={i}>
+                      {person.data.nickName} ? {person.data.nickName} : "الرجاء
+                      التعديل وكتابة اسمك المستعار"
+                    </Fragment>
+                  ))}
               </span>
               <button onClick={() => setOpen("nickname")}>تعديل</button>
             </>
@@ -181,11 +182,12 @@ const Personal = () => {
               <strong>البريد الالكتروني</strong>
               <span>
                 {userList &&
-                  userList.map((person) =>
-                    person.data.email
-                      ? person.data.email
-                      : "الرجاء التعديل وكتابة البريد الالكتروني"
-                  )}
+                  userList.map((person, i) => (
+                    <Fragment key={i}>
+                      {person.data.email}? {person.data.email}: "الرجاء التعديل
+                      وكتابة البريد الالكتروني"
+                    </Fragment>
+                  ))}
               </span>
               <button onClick={() => setOpen("email")}>تعديل</button>
             </>
@@ -200,11 +202,12 @@ const Personal = () => {
               <strong>تاريخ الميلاد</strong>
               <span>
                 {userList &&
-                  userList.map((person) =>
-                    person.data.dateOfBirth
-                      ? person.data.dateOfBirth
-                      : "الرجاء التعديل وكتابة تاريخ ميلادك"
-                  )}
+                  userList.map((person, i) => (
+                    <Fragment key={i}>
+                      {person.data.dateOfBirth} ? {person.data.dateOfBirth} :
+                      "الرجاء التعديل وكتابة تاريخ ميلادك"
+                    </Fragment>
+                  ))}
               </span>
               <button onClick={() => setOpen("dateOfBirth")}>تعديل</button>
             </>
@@ -219,11 +222,12 @@ const Personal = () => {
               <strong>الجنس</strong>
               <span>
                 {userList &&
-                  userList.map((person) =>
-                    person.data.gender
-                      ? person.data.gender
-                      : "الرجاء التعديل وكتابة جنسك"
-                  )}
+                  userList.map((person, i) => (
+                    <Fragment>
+                      {person.data.gender} ? {person.data.gender} : "الرجاء التعديل
+                      وكتابة جنسك"
+                    </Fragment>
+                  ))}
               </span>
               <button onClick={() => setOpen("gender")}>تعديل</button>
             </>
