@@ -40,6 +40,9 @@ const InfoDrug = (props) => {
               <img src={calendar} />
               <span>تسجيل الوصول</span>
             </div>
+            <span>
+              من {data.data.loginFrom} الي {data.data.loginTo}
+            </span>
           </li>
 
           <li>
@@ -47,6 +50,9 @@ const InfoDrug = (props) => {
               <img src={calendar} />
               <span>تسجيل المغادرة</span>
             </div>
+            <span>
+              من {data.data.logoutFrom} الي {data.data.logoutTo}
+            </span>
           </li>
 
           <li>
@@ -74,7 +80,11 @@ const InfoDrug = (props) => {
               <img src={petDog} />
               <span>الحيوانات الأليفة</span>
             </div>
-            <span>الحيوانات الأليفة غير مسموح بها</span>
+            {data.data.pet === "yesPet" ? (
+              <span>الحيوانات الأليفة مسموح بها</span>
+            ) : (
+              <span>الحيوانات الأليفة غير مسموح بها</span>
+            )}
           </li>
 
           <li>
@@ -82,10 +92,17 @@ const InfoDrug = (props) => {
               <img src={creditCard} />
               <span>يُرحب الفندق بهذه البطاقات</span>
             </div>
-            <span>
-              يقبل {data.data.nameDrug} هذه البطاقات ويحتفظ بالحق في احتجاز مبلغ
-              بشكل مؤقت قبل الوصول.
-            </span>
+            {data.data.debit === "yes" ? (
+              <span>
+                يقبل {data.data.nameDrug} هذه البطاقات ويحتفظ بالحق في احتجاز
+                مبلغ بشكل مؤقت قبل الوصول.
+              </span>
+            ) : (
+              <span>
+                لا يقبل {data.data.nameDrug} هذه البطاقات ويحتفظ بالحق في احتجاز
+                مبلغ بشكل مؤقت قبل الوصول.
+              </span>
+            )}
           </li>
         </ul>
       </div>

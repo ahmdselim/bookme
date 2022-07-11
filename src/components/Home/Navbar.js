@@ -44,8 +44,9 @@ const Navbar = () => {
                   {userList && userList
                     ? userList.map((person, i) => (
                         <Fragment key={i}>
-                          {person.data.name} == "" ? "مستخدم جديد" :
-                          {person.data.name}
+                          {person.data.name === ""
+                            ? "مستخدم جديد"
+                            : person.data.name}
                         </Fragment>
                       ))
                     : "زائر"}

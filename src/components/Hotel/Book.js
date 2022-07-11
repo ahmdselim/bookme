@@ -42,7 +42,7 @@ const Book = (props) => {
           <button>تطبيق التغيرات</button>
         </div>
       </div>
-      <BookTable />
+      <BookTable data={data} />
       <InfoDrug data={data} />
     </div>
   );

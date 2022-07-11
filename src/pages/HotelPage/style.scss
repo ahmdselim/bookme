@@ -235,6 +235,25 @@
             }
             table tbody tr {
               background-color: #f9fafb;
+              td {
+                ul {
+                  margin: 0;
+                  padding: 0;
+                  display: flex;
+                  justify-content: flex-start;
+                  align-items: flex-start;
+                  li {
+                    max-width: 20%;
+                    flex-basis: 20%;
+                    img {
+                      width: 15px;
+                      height: 15px;
+                      object-fit: cover;
+                      margin-left: 10px;
+                    }
+                  }
+                }
+              }
             }
             table tbody tr:nth-child(odd) {
               background-color: #ffffff;
@@ -282,9 +301,10 @@
                     width: 15px;
                     height: 15px;
                     object-fit: cover;
-                  }span {
-                  font-weight: 600;
-                }
+                  }
+                  span {
+                    font-weight: 600;
+                  }
                 }
                 span {
                   font-weight: 500;

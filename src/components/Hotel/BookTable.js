@@ -1,6 +1,16 @@
 import React from "react";
+import user from "../../images/user.png";
+import width from "../../images/width.png";
+import shower from "../../images/shower.ico";
+const BookTable = (props) => {
+  const { data } = props;
+  const icon = () => {
+    for (let i = 0; i < 5; i++) {
+      // return <img src={user} />;
+      return <p>sa</p>;
+    }
+  };
 
-const BookTable = () => {
   return (
     <div className="drugTable">
       <table>
@@ -13,19 +23,40 @@ const BookTable = () => {
         </thead>
         <tbody>
           <tr>
-            <td>David</td>
-            <td>Male</td>
-            <td>23</td>
-          </tr>
-          <tr>
-            <td>Jessica</td>
-            <td>Female</td>
-            <td>47</td>
-          </tr>
-          <tr>
-            <td>Warren</td>
-            <td>Male</td>
-            <td>12</td>
+            <td>
+              {data.data.residence === "livingroom" ? (
+                <h5>غرفة معيشة</h5>
+              ) : (
+                <h5>غرفة نوم</h5>
+              )}
+              {data.data.residence === "livingroom" ? (
+                <span> عدد السرير الفردي {data.data.numSingleBed}</span>
+              ) : null}
+              {data.data.residence === "bedroom" ? (
+                <>
+                  <span>عدد السرير الفردي {data.data.numSingleBed}</span>
+                  <span>عدد السرير المزدوج {data.data.numDoubleBed}</span>
+                  <span>عدد السرير الكبير {data.data.numBigBed}</span>
+                  <span>عدد السرير الكبير جدا {data.data.numVBigBed}</span>
+                </>
+              ) : null}
+              <ul>
+                <li>
+                  <img src={width} />
+                  {data.data.areaApartment}
+                </li>
+                <li>
+                  <img src={shower} />
+                  {data.data.numBathroom}
+                </li>
+              </ul>
+            </td>
+            <td>{data.data.drug === "apartment" ? 1 : data.data.numGuest}</td>
+            <td>
+              {data.data.drug === "apartment"
+                ? data.data.priceApartment
+                : data.data.numGuest * data.data.priceApartment}
+            </td>
           </tr>
         </tbody>
       </table>

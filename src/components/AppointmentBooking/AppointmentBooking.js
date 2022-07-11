@@ -79,6 +79,8 @@ const AppointmentBooking = () => {
   const [addressU, setAddressU] = useState("");
   const [postalAddressU, setPostalAddressU] = useState("");
   const [debit, setDebit] = useState("");
+  const [pet, setPet] = useState("");
+  const [priceApartment, setPriceApartment] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -99,6 +101,29 @@ const AppointmentBooking = () => {
   const showInfo = () => {
     return (
       <>
+        <label>سعر الشقة الواحدة للفرد</label>
+        <input
+          type="number"
+          onChange={(e) => setPriceApartment(e.target.value)}
+        />
+        {` $ `}
+        <br />
+        <br />
+        <label>كم عدد الضيوف الذين يمكنهم الاقامة ؟</label>
+        <br />
+        <input type="number" onChange={(e) => setNumGuest(e.target.value)} />
+        <br />
+        <label>كم عدد الحمامات المتوفرة ؟ </label>
+        <br />
+        <input type="number" onChange={(e) => setNumBathroom(e.target.value)} />
+        <br />
+        <label>ماهي مساحة هذه الشقة ؟ </label>
+        <br />
+        <input
+          type="number"
+          onChange={(e) => setAreaApartment(e.target.value)}
+        />{` متر مربع `}
+        <br /> <br />
         <label>اسم مكان الإقامة : </label>
         <input type="text" onChange={(e) => setNameDrug(e.target.value)} />
         <h5>أين يقع المكان الذي ترغب بإدراجه؟</h5>
@@ -121,7 +146,11 @@ const AppointmentBooking = () => {
             dataList.data
               .filter((data) => data.country === countryDrug)
               .map((city) =>
-                city.cities.map((c,i) => <option key={i} value={c}>{c}</option>)
+                city.cities.map((c, i) => (
+                  <option key={i} value={c}>
+                    {c}
+                  </option>
+                ))
               )
           ) : (
             <option>الرجاء اختيار دولتك لتظهر مدنك</option>
@@ -147,6 +176,7 @@ const AppointmentBooking = () => {
             <option value="oneApartment">شقة واحدة</option>
             <option value="multipleApartment">عدة شقق</option>
           </select>
+
           {apartment === "multipleApartment" ? (
             <>
               <br />
@@ -202,29 +232,6 @@ const AppointmentBooking = () => {
             <input
               type="number"
               onChange={(e) => setNumVBigBed(e.target.value)}
-            />
-            <br />
-            <br />
-            <label>كم عدد الضيوف الذين يمكنهم الاقامة ؟</label>
-            <br />
-            <input
-              type="number"
-              onChange={(e) => setNumGuest(e.target.value)}
-            />
-            <br />
-            <label>كم عدد الحمامات المتوفرة ؟ </label>
-            <br />
-            <input
-              type="number"
-              onChange={(e) => setNumBathroom(e.target.value)}
-            />
-            <br />
-            <br />
-            <label>ماهي مساحة هذه الشقة ؟ </label>
-            <br />
-            <input
-              type="number"
-              onChange={(e) => setAreaApartment(e.target.value)}
             />
           </>
         );
@@ -441,14 +448,18 @@ const AppointmentBooking = () => {
               )}
 
               {` يقع ${
-                drug === "apartment" ? ' شقة ': drug === "house"
-                ? " بيت "
-                : drug === "hotel"
-                ? " فندق "
-                : drug === "castle"
-                ? " قصر " : ' منتجع '
+                drug === "apartment"
+                  ? " شقة "
+                  : drug === "house"
+                  ? " بيت "
+                  : drug === "hotel"
+                  ? " فندق "
+                  : drug === "castle"
+                  ? " قصر "
+                  : " منتجع "
               } في  ${countryDrug}, ${cityDrug},${streetDrug},${postalDrug}`}
             </p>
+            <p>سعر الغرفة للفرد الواحد {priceApartment} $</p>
             <p>
               {residence === "bedroom"
                 ? " الضيوف ستنام في غرفة نوم "
@@ -506,6 +517,12 @@ const AppointmentBooking = () => {
             </p>
 
             <p>
+              {pet === "yesPet"
+                ? "يسمح للضيوف استقبال الحيوانات الاليفة معهم"
+                : "لا يسمح للضيوف استقبال الحيوانات الاليفة معهم"}
+            </p>
+
+            <p>
               {debit === "no"
                 ? " لن يتم الخصم من البطاقه الائتمانية "
                 : " سيتم الخصم من البطاقة الائتمانية "}
@@ -545,6 +562,7 @@ const AppointmentBooking = () => {
             </li>
           </ul>
         </div>
+
         {disabledAttr === true ? (
           <button onClick={uploadDrug} disabled>
             اضافه العقار
@@ -579,6 +597,7 @@ const AppointmentBooking = () => {
             drug,
             apartment,
             MultiApartment,
+            priceApartment,
             nameDrug,
             countryDrug,
             streetDrug,
@@ -634,6 +653,7 @@ const AppointmentBooking = () => {
             cityAddressU,
             addressU,
             postalAddressU,
+            pet,
             dispatch
           );
           getDrugs(dispatch);
@@ -693,7 +713,9 @@ const AppointmentBooking = () => {
           }
         }
       }
-      if (nameDrug === "") {
+      if (priceApartment === "") {
+        setError("من فضلك ادخل سعر الغرفة للفرد");
+      } else if (nameDrug === "") {
         setError("من فضلك اختار اسم مكان الاقامة");
       } else if (countryDrug === "") {
         setError("من فضلك اختار الدولة / الاقليم");
@@ -770,6 +792,11 @@ const AppointmentBooking = () => {
         setError("من فضلك ادخل عنوانك");
       } else if (postalAddressU === "") {
         setError("من فضلك ادخل الرمز البريدي");
+      }
+      if (pet === "") {
+        setError(
+          "من فضلك اختار هل تريد السماح للضيوف باصطحاب الحيوانات الاليفة ام لا"
+        );
       } else {
         setViewDrug(!viewDrug);
       }
@@ -1195,6 +1222,7 @@ const AppointmentBooking = () => {
               ) : null}
             </div>
           </div>
+
           <div className="collapsible">
             <input type="checkbox" id="collapsible-head11" />
             <label htmlFor="collapsible-head11" className="collapsibleLabel">
@@ -1248,7 +1276,11 @@ const AppointmentBooking = () => {
                       dataList.data
                         .filter((data) => data.country === countryDrug)
                         .map((city) =>
-                          city.cities.map((c,i) => <option key={i} value={c}>{c}</option>)
+                          city.cities.map((c, i) => (
+                            <option key={i} value={c}>
+                              {c}
+                            </option>
+                          ))
                         )
                     ) : (
                       <option>الرجاء اختيار دولتك لتظهر مدنك</option>
@@ -1271,9 +1303,55 @@ const AppointmentBooking = () => {
               ) : null}
             </div>
           </div>
+
+          <div className="collapsible">
+            <input type="checkbox" id="collapsible-head14" />
+            <label htmlFor="collapsible-head14" className="collapsibleLabel">
+              الحيوانات الاليفه
+            </label>
+            <div className="collapsible-text">
+              {drug === "apartment" ||
+              drug === "house" ||
+              drug === "hotel" ||
+              drug === "castle" ? (
+                <>
+                  {" "}
+                  <h3>
+                    هل تسح بالحيوانات الاليفه في{" "}
+                    {drug === "apartment"
+                      ? " شقتك "
+                      : drug === "house"
+                      ? " بيتك "
+                      : drug === "hotel"
+                      ? " فندقك "
+                      : drug === "castle"
+                      ? " قصرك "
+                      : " منتجعك "}
+                  </h3>
+                  <input
+                    type="checkbox"
+                    value="yesPet"
+                    onChange={(e) => setPet(e.target.value)}
+                    className="as"
+                  />
+                  <label>نعم</label>
+                  <br />
+                  <input
+                    type="checkbox"
+                    value="noPet"
+                    onChange={(e) => setPet(e.target.value)}
+                    className="as"
+                  />
+                  <label>لا</label>
+                </>
+              ) : null}
+            </div>
+          </div>
+
           <div className="collapsible">
             {error.length > 0 ? <div className="popup">{error}</div> : null}
           </div>
+
           <button onClick={handleSubmit}>أتمم عملية التسجيل</button>
         </div>
       )}
