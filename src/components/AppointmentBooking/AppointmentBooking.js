@@ -11,6 +11,18 @@ import {
   updateName,
 } from "../../redux/actions/actionCreator";
 import { useDispatch, useSelector } from "react-redux";
+import ChooseDrug from "./drug/ChooseDrug";
+import Residence from "./drug/Residence";
+import Comfort from "./drug/Comfort";
+import KitchenAndlaundry from "./drug/KitchenAndlaundry";
+import View from "./drug/View";
+import Breakfast from "./drug/Breakfast";
+import Entertainment from "./drug/Entertainment";
+import Language from "./drug/Language";
+import ImagesMain from "./drug/ImagesMain";
+import CheckIn from "./drug/CheckIn";
+import Payment from "./drug/Payment";
+import PetAnimal from "./drug/PetAnimal";
 
 const AppointmentBooking = () => {
   const dispatch = useDispatch();
@@ -81,6 +93,8 @@ const AppointmentBooking = () => {
   const [debit, setDebit] = useState("");
   const [pet, setPet] = useState("");
   const [priceApartment, setPriceApartment] = useState("");
+  const [imagesUpload, setImagesUpload] = useState(null);
+  const [image, setImage] = "";
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -97,315 +111,6 @@ const AppointmentBooking = () => {
       .then((data) => setData(data))
       .catch((err) => console.log(err));
   }, [user, loading, navigate]);
-
-  const showInfo = () => {
-    return (
-      <>
-        <label>سعر الشقة الواحدة للفرد</label>
-        <input
-          type="number"
-          onChange={(e) => setPriceApartment(e.target.value)}
-        />
-        {` $ `}
-        <br />
-        <br />
-        <label>كم عدد الضيوف الذين يمكنهم الاقامة ؟</label>
-        <br />
-        <input type="number" onChange={(e) => setNumGuest(e.target.value)} />
-        <br />
-        <label>كم عدد الحمامات المتوفرة ؟ </label>
-        <br />
-        <input type="number" onChange={(e) => setNumBathroom(e.target.value)} />
-        <br />
-        <label>ماهي مساحة هذه الشقة ؟ </label>
-        <br />
-        <input
-          type="number"
-          onChange={(e) => setAreaApartment(e.target.value)}
-        />{` متر مربع `}
-        <br /> <br />
-        <label>اسم مكان الإقامة : </label>
-        <input type="text" onChange={(e) => setNameDrug(e.target.value)} />
-        <h5>أين يقع المكان الذي ترغب بإدراجه؟</h5>
-        <label>الدولة / الإقليم</label>
-        <select onChange={(e) => setCountryDrug(e.target.value)}>
-          <option>اختار دولتك</option>
-          {dataList &&
-            dataList.data.map((data, i) => (
-              <Fragment key={i}>
-                <option value={data.country}>{data.country}</option>
-              </Fragment>
-            ))}
-        </select>
-        <br />
-        <label>المدينة</label> <br />
-        <select onChange={(e) => setCityDrug(e.target.value)}>
-          <option>اختار مدينتك</option>
-          {countryDrug ? (
-            dataList &&
-            dataList.data
-              .filter((data) => data.country === countryDrug)
-              .map((city) =>
-                city.cities.map((c, i) => (
-                  <option key={i} value={c}>
-                    {c}
-                  </option>
-                ))
-              )
-          ) : (
-            <option>الرجاء اختيار دولتك لتظهر مدنك</option>
-          )}
-        </select>
-        <br />
-        <label>اسم الشارع ورقم البيت</label>
-        <input type="text" onChange={(e) => setStreetDrug(e.target.value)} />
-        <br />
-        <label>الرمز البريدي</label> <br />
-        <input type="text" onChange={(e) => setPostalDrug(e.target.value)} />
-      </>
-    );
-  };
-
-  // Start apartment functions
-  const showApartment = () => {
-    if (drug === "apartment") {
-      return (
-        <>
-          <select onChange={(e) => setApartment(e.target.value)}>
-            <option>عدد الشقق</option>
-            <option value="oneApartment">شقة واحدة</option>
-            <option value="multipleApartment">عدة شقق</option>
-          </select>
-
-          {apartment === "multipleApartment" ? (
-            <>
-              <br />
-              <label>عدد الشقق : </label>
-              <br />
-              <input
-                type="number"
-                onChange={(e) => setMultiApartment(e.target.value)}
-              />
-              <br />
-              <br />
-            </>
-          ) : null}
-          {showInfo()}
-        </>
-      );
-    }
-  };
-
-  const showResidence = () => {
-    if (
-      drug === "apartment" ||
-      drug === "house" ||
-      drug === "hotel" ||
-      drug === "castle"
-    ) {
-      if (residence === "bedroom") {
-        return (
-          <>
-            <label>سرير فردي</label>
-            <br />
-            <input
-              type="number"
-              onChange={(e) => setNumSingleBed(e.target.value)}
-            />
-            <br />
-            <label>سرير مزدوج</label>
-            <br />
-            <input
-              type="number"
-              onChange={(e) => setNumDoubleBed(e.target.value)}
-            />
-            <br />
-            <label>سرير كبير</label>
-            <br />
-            <input
-              type="number"
-              onChange={(e) => setNumBigBed(e.target.value)}
-            />
-            <br />
-            <label>سرير كبير جدا</label>
-            <br />
-            <input
-              type="number"
-              onChange={(e) => setNumVBigBed(e.target.value)}
-            />
-          </>
-        );
-      } else if (residence === "livingroom") {
-        return (
-          <>
-            <label>سرير فردي</label>
-            <br />
-            <input
-              type="number"
-              onChange={(e) => setNumSingleBed(e.target.value)}
-            />
-          </>
-        );
-      }
-    }
-  };
-
-  const showBreakfast = () => {
-    if (
-      drug === "apartment" ||
-      drug === "house" ||
-      drug === "hotel" ||
-      drug === "castle"
-    ) {
-      if (breakfast === "breakfastYes") {
-        return (
-          <>
-            <h5>هل يتضمن السعر الذي يدفعه الضيوف وجبة الإفطار؟</h5>
-            <input
-              type="radio"
-              className="as"
-              name="applyPrice"
-              value="yes"
-              onChange={(e) => setLunchBreakfast(e.target.value)}
-            />
-            <label>نعم </label>
-            {lunchBreakfast === "yes" ? (
-              <>
-                <br />
-                <label>سعر وجبة الإفطار للشخص الواحد لكل يوم</label>
-                <input
-                  type="number"
-                  onChange={(e) => setBreakfastPrice(e.target.value)}
-                  disabled={lunchBreakfast !== "yes" ? "disabled" : null}
-                />
-                <span> $ </span>
-                <br />
-              </>
-            ) : null}
-            <br />
-            <input
-              type="radio"
-              className="as"
-              name="applyPrice"
-              value="no"
-              onChange={(e) => setLunchBreakfast(e.target.value)}
-            />
-            <label>لا </label>
-          </>
-        );
-      }
-    }
-  };
-  // End apartment functions
-
-  // Start house functions
-  const showHouse = () => {
-    return (
-      <>
-        <select onChange={(e) => setHouse(e.target.value)}>
-          <option value="">ما الذي يمكن للضيوف حجزه؟</option>
-          <option value="allPlace">المكان بالكامل</option>
-          <option value="privetRoom">غرفة خاصة</option>
-        </select>
-        {house === "allPlace" ? (
-          <>
-            <select onChange={(e) => setPlace(e.target.value)}>
-              <option value="">
-                أي من أنواع أماكن الإقامة المذكورة في القائمة أدناه مشابهة لمكان
-                الإقامة الخاص بك؟
-              </option>
-              <option value="شقة">شقة</option>
-              <option value="بيت عطلات">بيت عطلات</option>
-              <option value="فيلا">فيلا</option>
-              <option value="شقة فندقية">شقة فندقية</option>
-              <option value="شالية">شالية</option>
-              <option value="منتزه عطلات">منتزه عطلات</option>
-            </select>
-            {place && place ? (
-              <select onChange={(e) => setNumHouses(e.target.value)}>
-                <option value="">كم عدد {place} التي تدرجها</option>
-                <option>{place} واحدة</option>
-                <option> عدة {place} </option>
-              </select>
-            ) : null}
-          </>
-        ) : house === "privetRoom" ? (
-          <>
-            <select onChange={(e) => setPrivateRoom(e.target.value)}>
-              <option value="">
-                أي من أنواع أماكن الإقامة المذكورة في القائمة أدناه مشابهة لمكان
-                الإقامة الخاص بك؟
-              </option>
-              <option value="بيت ضيافة">بيت ضيافة</option>
-              <option value="مبيت وافطار">مبيت وافطار</option>
-              <option value="اقامه منازل">اقامه منازل</option>
-              <option value="بيت ريفي">بيت ريفي</option>
-              <option value="شقة فندقية">شقة فندقية</option>
-              <option value="اقامة في مزرعة">اقامة في مزرعة</option>
-              <option value="كوخ">كوخ</option>
-            </select>
-            {privateRoom && privateRoom ? (
-              <select onChange={(e) => setNumPrivateRoom(e.target.value)}>
-                <option value="">كم عدد {privateRoom} التي تدرجها</option>
-                <option>{privateRoom} واحدة</option>
-                <option> عدة {privateRoom} </option>
-              </select>
-            ) : null}
-          </>
-        ) : null}
-        {showInfo()}
-      </>
-    );
-  };
-  // End house functions
-
-  // Start hotel functions
-  const showHotel = () => {
-    return (
-      <>
-        <select onChange={(e) => setHotel(e.target.value)}>
-          <option value="">
-            أي من أنواع أماكن الإقامة المذكورة في القائمة أدناه مشابهة لمكان
-            الإقامة الخاص بك؟
-          </option>
-          <option value="فندق">فندق</option>
-          <option value="بيت ضيافة">بيت ضيافة</option>
-          <option value="مبيت وإفطار">مبيت وإفطار</option>
-          <option value="إقامة منازل">إقامة منازل</option>
-          <option value="بيت شباب">بيت شباب</option>
-          <option value="شقة فندقية">شقة فندقية</option>
-          <option value="فندق كبسولة">فندق كبسولة</option>
-          <option value="بيت ريفي">بيت ريفي</option>
-          <option value="إقامة في مزرعة">إقامة في مزرعة</option>
-        </select>
-        {hotel && hotel ? (
-          <select onChange={(e) => setHotelNum(e.target.value)}>
-            <option value="">كم عدد {hotel} التي تدرجها؟</option>
-            <option value="onlyHoel">
-              عدد 1 {hotel} بغرفة واحدة أو عدة غرف يمكن للضيوف حجزها
-            </option>
-            <option value="manyHotel">
-              عدة {hotel} بغرفة واحدة أو عدة غرف يمكن للضيوف حجزها
-            </option>
-          </select>
-        ) : null}
-        {hotelNum && hotelNum ? (
-          <>
-            <label>عدد أماكن الإقامة</label>
-            <br />
-            <input
-              type="number"
-              onChange={(e) => setNumOfHotels(e.target.value)}
-            />
-          </>
-        ) : null}
-        <br />
-        <br />
-        {showInfo()}
-      </>
-    );
-  };
-  // End hotel functions
 
   const showDrugUpload = () => {
     return (
@@ -468,7 +173,6 @@ const AppointmentBooking = () => {
                 ? ` عدد السرير الفردي ${numSingleBed} - وعدد السرير المزدوج  ${numDoubleBed} - وعدد السرير الكبير ${numBigBed} - وعدد السرير الكبير جدا  ${numVBigBed} `
                 : ` عدد السرير الفردي ${numSingleBed} `}
             </p>
-
             <p>
               {breakfast === "breakfastYes"
                 ? "أقدم وجبة افطار للضيوف"
@@ -479,20 +183,17 @@ const AppointmentBooking = () => {
                   : " السعر الذي يدفعة الضيوف لا يتضمن وجبة الافطار "
                 : null}
             </p>
-
             <p>
               {conditioning ? " تكييف - " : null}
               {heating ? " تدفئة - " : null}
               {wifi ? "  واي فاي مجاني - " : null}
               {carCharge ? " محطة شحن السيارات الكهربائية " : null}
             </p>
-
             <p>
               {kitchen ? " مطبخ  - " : null}
               {smallKitchen ? " مطبخ صغير  - " : null}
               {washingMachine ? " غسالة ملابس " : null}
             </p>
-
             <p>
               {flatTv ? " تلفزيون بشاشة مسطحة - " : null}
               {pool ? "  مسبح  - " : null}
@@ -500,14 +201,12 @@ const AppointmentBooking = () => {
               {smallBar ? " ميني بار - " : null}
               {sauna ? " ساونا " : null}
             </p>
-
             <p>
               {balcony ? " شرفة - " : null}
               {gardenView ? "  إطلالة على الحديقة - " : null}
               {head ? "  تراس - " : null}
               {view ? " إطلالة - " : null}
             </p>
-
             <p>
               {english ? " الإنجليزية - " : null}
               {arabic ? " العربية - " : null}
@@ -515,13 +214,11 @@ const AppointmentBooking = () => {
               {french ? " الفرنسية - " : null}
               {spanish ? " الإسبانية - " : null}
             </p>
-
             <p>
               {pet === "yesPet"
                 ? "يسمح للضيوف استقبال الحيوانات الاليفة معهم"
                 : "لا يسمح للضيوف استقبال الحيوانات الاليفة معهم"}
             </p>
-
             <p>
               {debit === "no"
                 ? " لن يتم الخصم من البطاقه الائتمانية "
@@ -581,6 +278,7 @@ const AppointmentBooking = () => {
     setDisabledAttr(!disabledAttr);
     const sotrageRef = ref(storage, `drugMain/${imageUpload.name}`);
     const uploadTask = uploadBytesResumable(sotrageRef, imageUpload);
+
     uploadTask.on(
       "state_changed",
       (snapshot) => {
@@ -813,540 +511,121 @@ const AppointmentBooking = () => {
         showDrugUpload()
       ) : (
         <div className="wrapper">
-          <div className="collapsible">
-            <input type="checkbox" id="collapsible-head" />
-            <label htmlFor="collapsible-head" className="collapsibleLabel">
-              للبدء، اختر نوع العقار الذي ترغب بعرضة على BookMe.com
-            </label>
-            <div className="collapsible-text">
-              <select onChange={(e) => setDrug(e.target.value)}>
-                <option value="">اختر عقارك</option>
-                <option value="apartment">شقة</option>
-                <option value="house">بيوت</option>
-                <option value="hotel">فتادق</option>
-                <option value="castle">قصور</option>
-              </select>
-              {drug === "apartment" ? showApartment() : null}
-              {drug === "house" ? showHouse() : null}
-              {drug === "hotel" ? showHotel() : null}
-            </div>
-          </div>
-          <div className="collapsible">
-            <input type="checkbox" id="collapsible-head1" />
-            <label htmlFor="collapsible-head1" className="collapsibleLabel">
-              تفاصيل مكان الإقامة
-            </label>
-            <div className="collapsible-text">
-              {drug === "apartment" ||
-              drug === "house" ||
-              drug === "hotel" ||
-              drug === "castle" ? (
-                <select onChange={(e) => setResidence(e.target.value)}>
-                  <option>أين يمكن للضيوف النوم ؟</option>
+          <ChooseDrug
+            drug={drug}
+            setDrug={setDrug}
+            setPriceApartment={setPriceApartment}
+            setNumGuest={setNumGuest}
+            setNumBathroom={setNumBathroom}
+            setAreaApartment={setAreaApartment}
+            setNameDrug={setNameDrug}
+            setCountryDrug={setCountryDrug}
+            countryDrug={countryDrug}
+            dataList={dataList}
+            setCityDrug={setCityDrug}
+            setStreetDrug={setStreetDrug}
+            setPostalDrug={setPostalDrug}
+            setHouse={setHouse}
+            setPlace={setPlace}
+            setNumHouses={setNumHouses}
+            place={place}
+            setPrivateRoom={setPrivateRoom}
+            house={house}
+            privateRoom={privateRoom}
+            setNumPrivateRoom={setNumPrivateRoom}
+            setHotel={setHotel}
+            setHotelNum={setHotelNum}
+            hotel={hotel}
+            hotelNum={hotelNum}
+            setNumOfHotels={setNumOfHotels}
+            setApartment={setApartment}
+            setMultiApartment={setMultiApartment}
+            apartment={apartment}
+          />
 
-                  <>
-                    <option value="bedroom">غرفة النوم </option>
-                    <option value="livingroom">غرفة معيشة</option>
-                  </>
-                </select>
-              ) : null}
-              {drug === "apartment" ||
-              drug === "house" ||
-              drug === "hotel" ||
-              drug === "castle"
-                ? showResidence()
-                : null}
-            </div>
-          </div>
-          <div className="collapsible">
-            <input type="checkbox" id="collapsible-head2" />
-            <label htmlFor="collapsible-head2" className="collapsibleLabel">
-              وسائل الراحة العامّة
-            </label>
-            <div className="collapsible-text">
-              {drug === "apartment" ||
-              drug === "house" ||
-              drug === "hotel" ||
-              drug === "castle" ? (
-                <>
-                  <label>وسائل الراحة العامّة</label>
-                  <br />
-                  <br />
-                  <input
-                    type="checkbox"
-                    onChange={(e) => setConditioning(e.target.value)}
-                    className="as"
-                    value="conditioning"
-                  />
-                  <span>تكييف</span>
-                  <br />
-                  <input
-                    type="checkbox"
-                    onChange={(e) => setHeating(e.target.value)}
-                    className="as"
-                    value="heating"
-                  />
-                  <span>تدفئة</span>
-                  <br />
-                  <input
-                    type="checkbox"
-                    onChange={(e) => setWifi(e.target.value)}
-                    className="as"
-                    value="wifi"
-                  />
-                  <span>واي فاي مجاني</span>
-                  <br />
-                  <input
-                    type="checkbox"
-                    onChange={(e) => setCarCharge(e.target.value)}
-                    className="as"
-                    value="carCharge"
-                  />
-                  <span>محطة شحن السيارات الكهربائية</span>
-                </>
-              ) : null}
-            </div>
-          </div>
+          <Residence
+            drug={drug}
+            setResidence={setResidence}
+            residence={residence}
+            setNumSingleBed={setNumSingleBed}
+            setNumDoubleBed={setNumDoubleBed}
+            setNumBigBed={setNumBigBed}
+            setNumVBigBed={setNumVBigBed}
+          />
 
-          <div className="collapsible">
-            <input type="checkbox" id="collapsible-head7" />
-            <label htmlFor="collapsible-head7" className="collapsibleLabel">
-              المطبخ وغسيل الملابس
-            </label>
-            <div className="collapsible-text">
-              {drug === "apartment" ||
-              drug === "house" ||
-              drug === "hotel" ||
-              drug === "castle" ? (
-                <>
-                  <label>المطبخ وغسيل الملابس</label>
-                  <br />
-                  <br />
-                  <input
-                    type="checkbox"
-                    onChange={(e) => setKitchen(e.target.value)}
-                    className="as"
-                    value="kitchen"
-                  />
-                  <span>مطبخ</span>
-                  <br />
-                  <input
-                    type="checkbox"
-                    onChange={(e) => setSmallKitchen(e.target.value)}
-                    className="as"
-                    value="smallKitchen"
-                  />
-                  <span>مطبخ صغير</span>
-                  <br />
-                  <input
-                    type="checkbox"
-                    onChange={(e) => setWashingMachine(e.target.value)}
-                    className="as"
-                    value="washingMachine"
-                  />
-                  <span> غسالة ملابس</span>
-                </>
-              ) : null}
-            </div>
-          </div>
+          <Comfort
+            drug={drug}
+            setConditioning={setConditioning}
+            setHeating={setHeating}
+            setWifi={setWifi}
+            setCarCharge={setCarCharge}
+          />
 
-          <div className="collapsible">
-            <input type="checkbox" id="collapsible-head8" />
-            <label htmlFor="collapsible-head8" className="collapsibleLabel">
-              الترفيه
-            </label>
-            <div className="collapsible-text">
-              {drug === "apartment" ||
-              drug === "house" ||
-              drug === "hotel" ||
-              drug === "castle" ? (
-                <>
-                  <label>الترفيه</label>
-                  <br />
-                  <br />
-                  <input
-                    type="checkbox"
-                    onChange={(e) => setFlatTv(e.target.value)}
-                    className="as"
-                    value="flatTv"
-                  />
-                  <span>تلفزيون بشاشة مسطحة</span>
-                  <br />
-                  <input
-                    type="checkbox"
-                    onChange={(e) => setPool(e.target.value)}
-                    className="as"
-                    value="pool"
-                  />
-                  <span>مسبح</span>
-                  <br />
-                  <input
-                    type="checkbox"
-                    onChange={(e) => setHootTube(e.target.value)}
-                    className="as"
-                    value="hootTube"
-                  />
-                  <span> حوض استحمام ساخن </span>
-                  <br />
-                  <input
-                    type="checkbox"
-                    onChange={(e) => setSmallBar(e.target.value)}
-                    className="as"
-                    value="smallBar"
-                  />
-                  <span> ميني بار </span>
-                  <br />
-                  <input
-                    type="checkbox"
-                    onChange={(e) => setSauna(e.target.value)}
-                    className="as"
-                    value="sauna"
-                  />
-                  <span> ساونا</span>
-                </>
-              ) : null}
-            </div>
-          </div>
+          <KitchenAndlaundry
+            drug={drug}
+            setKitchen={setKitchen}
+            setSmallKitchen={setSmallKitchen}
+            setWashingMachine={setWashingMachine}
+          />
 
-          <div className="collapsible">
-            <input type="checkbox" id="collapsible-head9" />
-            <label htmlFor="collapsible-head9" className="collapsibleLabel">
-              وسائل الراحة الخارجية والإطلالة
-            </label>
-            <div className="collapsible-text">
-              {drug === "apartment" ||
-              drug === "house" ||
-              drug === "hotel" ||
-              drug === "castle" ? (
-                <>
-                  <label>وسائل الراحة الخارجية والإطلالة</label>
-                  <br />
-                  <br />
-                  <input
-                    type="checkbox"
-                    onChange={(e) => setBalcony(e.target.value)}
-                    className="as"
-                    value="balcony"
-                  />
-                  <span>شرفة</span>
-                  <br />
-                  <input
-                    type="checkbox"
-                    onChange={(e) => setGardenView(e.target.value)}
-                    className="as"
-                    value="gardenView"
-                  />
-                  <span> إطلالة على الحديقة</span>
-                  <br />
-                  <input
-                    type="checkbox"
-                    onChange={(e) => setHead(e.target.value)}
-                    className="as"
-                    value="head"
-                  />
-                  <span> تراس</span>
-                  <br />
-                  <input
-                    type="checkbox"
-                    onChange={(e) => setView(e.target.value)}
-                    className="as"
-                    value="view"
-                  />
-                  <span> إطلالة</span>
-                </>
-              ) : null}
-            </div>
-          </div>
+          <Entertainment
+            drug={drug}
+            setFlatTv={setFlatTv}
+            setHootTube={setHootTube}
+            setPool={setPool}
+            setSauna={setSauna}
+            setSmallBar={setSmallBar}
+          />
 
-          <div className="collapsible">
-            <input type="checkbox" id="collapsible-head3" />
-            <label htmlFor="collapsible-head3" className="collapsibleLabel">
-              تفاصيل وجبة الإفطار
-            </label>
-            <div className="collapsible-text">
-              {drug === "apartment" ||
-              drug === "house" ||
-              drug === "hotel" ||
-              drug === "castle" ? (
-                <select onChange={(e) => setBreakfast(e.target.value)}>
-                  <option>هل تقدّم وجبة الإفطار للضيوف؟</option>
-                  {drug === "apartment" ||
-                  drug === "house" ||
-                  drug === "hotel" ||
-                  drug === "castle" ? (
-                    <>
-                      <option value="breakfastYes">نعم</option>
-                      <option value="breakfastNo">لا </option>
-                    </>
-                  ) : null}
-                </select>
-              ) : null}
+          <View
+            drug={drug}
+            setBalcony={setBalcony}
+            setGardenView={setGardenView}
+            setHead={setHead}
+            setView={setView}
+          />
 
-              {drug === "apartment" ||
-              drug === "house" ||
-              drug === "hotel" ||
-              drug === "castle"
-                ? showBreakfast()
-                : null}
-            </div>
-          </div>
-          <div className="collapsible">
-            <input type="checkbox" id="collapsible-head4" />
-            <label htmlFor="collapsible-head4" className="collapsibleLabel">
-              ما اللغات التي تتحدث بها أنت أو موظفوك؟
-            </label>
-            <div className="collapsible-text">
-              {drug === "apartment" ||
-              drug === "house" ||
-              drug === "hotel" ||
-              drug === "castle" ? (
-                <>
-                  <input
-                    className="as"
-                    type="checkbox"
-                    value="english"
-                    onChange={(e) => setEnglish(e.target.value)}
-                  />
-                  <label>الإنجليزية</label>
-                  <br />
-                  <input
-                    className="as"
-                    type="checkbox"
-                    value="arabic"
-                    onChange={(e) => setArabic(e.target.value)}
-                  />
-                  <label>العربية</label>
-                  <br />
-                  <input
-                    className="as"
-                    type="checkbox"
-                    value="german"
-                    onChange={(e) => setGerman(e.target.value)}
-                  />
-                  <label>الألمانية</label>
-                  <br />
-                  <input
-                    className="as"
-                    type="checkbox"
-                    value="frensh"
-                    onChange={(e) => setFrench(e.target.value)}
-                  />
-                  <label>الفرنسية</label>
-                  <br />
-                  <input
-                    className="as"
-                    type="checkbox"
-                    value="spanish"
-                    onChange={(e) => setSpanish(e.target.value)}
-                  />
-                  <label>الإسبانية</label>
-                  <br />
-                </>
-              ) : null}
-            </div>
-          </div>
-          <div className="collapsible">
-            <input type="checkbox" id="collapsible-head5" />
-            <label htmlFor="collapsible-head5" className="collapsibleLabel">
-              شارك بعض الصور لمكان الإقامة الخاص بك حتى توضح للضيوف ما يمكنهم
-              توقعه.
-            </label>
-            <div className="collapsible-text">
-              {drug === "apartment" ||
-              drug === "house" ||
-              drug === "hotel" ||
-              drug === "castle" ? (
-                <>
-                  <h4>اضافة صور : </h4>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={(e) => {
-                      setImageUpload(e.target.files[0]);
-                    }}
-                  />
-                </>
-              ) : null}
-            </div>
-          </div>
-          <div className="collapsible">
-            <input type="checkbox" id="collapsible-head6" />
-            <label htmlFor="collapsible-head6" className="collapsibleLabel">
-              تسجيل الوصول
-            </label>
-            <div className="collapsible-text">
-              {drug === "apartment" ||
-              drug === "house" ||
-              drug === "hotel" ||
-              drug === "castle" ? (
-                <form>
-                  <p>تسجيل الدخول</p>
-                  <div className="row">
-                    <div>
-                      <label>من</label>
-                      <input
-                        type="time"
-                        min={new Date().toISOString().slice(0, 10)}
-                        onChange={(e) => setLoginFrom(e.target.value)}
-                      />
-                    </div>
-                    <div>
-                      <label>الي</label>
-                      <input
-                        type="time"
-                        min={new Date().toISOString().slice(0, 10)}
-                        onChange={(e) => setLoginTo(e.target.value)}
-                      />
-                    </div>
-                  </div>
-                  <p>تسجيل الخروج</p>
-                  <div className="row">
-                    <div>
-                      <label>من</label>
-                      <input
-                        type="time"
-                        min={new Date().toISOString().slice(0, 10)}
-                        onChange={(e) => setLogoutFrom(e.target.value)}
-                      />
-                    </div>
-                    <div>
-                      <label>الي</label>
-                      <input
-                        type="time"
-                        min={new Date().toISOString().slice(0, 10)}
-                        onChange={(e) => setLogoutTo(e.target.value)}
-                      />
-                    </div>
-                  </div>
-                </form>
-              ) : null}
-            </div>
-          </div>
+          <Breakfast
+            drug={drug}
+            setBreakfast={setBreakfast}
+            breakfast={breakfast}
+            setLunchBreakfast={setLunchBreakfast}
+            lunchBreakfast={lunchBreakfast}
+            setBreakfastPrice={setBreakfastPrice}
+          />
 
-          <div className="collapsible">
-            <input type="checkbox" id="collapsible-head11" />
-            <label htmlFor="collapsible-head11" className="collapsibleLabel">
-              عمليات الدفع والفاتورة
-            </label>
-            <div className="collapsible-text">
-              {drug === "apartment" ||
-              drug === "house" ||
-              drug === "hotel" ||
-              drug === "castle" ? (
-                <>
-                  <h3>خيارات الدفع المتاحة للضيوف</h3>
-                  <h4>
-                    هل يمكنك الخصم من البطاقة الائتمانية في مكان الإقامة الخاص
-                    بك؟
-                  </h4>
-                  <select onChange={(e) => setDebit(e.target.value)}>
-                    <option>هل تريد الخصم من البطاقه الائتمانية</option>
-                    <option value="yes">نعم</option>
-                    <option value="no">لا</option>
-                  </select>
-                  {debit === "no" ? (
-                    <>
-                      <h4>ليست مشكلة! اسمح لضيوفك بالدفع عبر الإنترنت</h4>
-                      <span>
-                        يمكنك السماح للضيوف بالدفع من خلال خدمة المدفوعات من
-                        Booking.com
-                      </span>
-                      <br />
-                      <br />
-                      <strong>الرسوم الخاصة بالبنك 2.4% </strong>
-                    </>
-                  ) : null}
-                  <h5>عنوان جهة الاستلام</h5>
-                  <label>الدولة / الإقليم</label>
-                  <select onChange={(e) => setCountryAddressU(e.target.value)}>
-                    <option>اختار دولتك</option>
-                    {dataList &&
-                      dataList.data.map((data, i) => (
-                        <Fragment key={i}>
-                          <option value={data.country}>{data.country}</option>
-                        </Fragment>
-                      ))}
-                  </select>
-                  <br />
-                  <label>المدينة</label> <br />
-                  <select onChange={(e) => setCityAddressU(e.target.value)}>
-                    <option>اختار مدينتك</option>
-                    {countryDrug ? (
-                      dataList &&
-                      dataList.data
-                        .filter((data) => data.country === countryDrug)
-                        .map((city) =>
-                          city.cities.map((c, i) => (
-                            <option key={i} value={c}>
-                              {c}
-                            </option>
-                          ))
-                        )
-                    ) : (
-                      <option>الرجاء اختيار دولتك لتظهر مدنك</option>
-                    )}
-                  </select>
-                  <br />
-                  <label>العنوان</label>
-                  <br />
-                  <input
-                    type="text"
-                    onChange={(e) => setAddressU(e.target.value)}
-                  />
-                  <br />
-                  <label>الرمز البريدي</label> <br />
-                  <input
-                    type="text"
-                    onChange={(e) => setPostalAddressU(e.target.value)}
-                  />
-                </>
-              ) : null}
-            </div>
-          </div>
+          <Language
+            drug={drug}
+            setArabic={setArabic}
+            setEnglish={setEnglish}
+            setFrench={setFrench}
+            setGerman={setGerman}
+            setSpanish={setSpanish}
+          />
 
-          <div className="collapsible">
-            <input type="checkbox" id="collapsible-head14" />
-            <label htmlFor="collapsible-head14" className="collapsibleLabel">
-              الحيوانات الاليفه
-            </label>
-            <div className="collapsible-text">
-              {drug === "apartment" ||
-              drug === "house" ||
-              drug === "hotel" ||
-              drug === "castle" ? (
-                <>
-                  {" "}
-                  <h3>
-                    هل تسح بالحيوانات الاليفه في{" "}
-                    {drug === "apartment"
-                      ? " شقتك "
-                      : drug === "house"
-                      ? " بيتك "
-                      : drug === "hotel"
-                      ? " فندقك "
-                      : drug === "castle"
-                      ? " قصرك "
-                      : " منتجعك "}
-                  </h3>
-                  <input
-                    type="checkbox"
-                    value="yesPet"
-                    onChange={(e) => setPet(e.target.value)}
-                    className="as"
-                  />
-                  <label>نعم</label>
-                  <br />
-                  <input
-                    type="checkbox"
-                    value="noPet"
-                    onChange={(e) => setPet(e.target.value)}
-                    className="as"
-                  />
-                  <label>لا</label>
-                </>
-              ) : null}
-            </div>
-          </div>
+          <ImagesMain drug={drug} setImageUpload={setImageUpload} />
+
+          <CheckIn
+            drug={drug}
+            setLoginFrom={setLoginFrom}
+            setLoginTo={setLoginTo}
+            setLogoutFrom={setLogoutFrom}
+            setLogoutTo={setLogoutTo}
+          />
+
+          <Payment
+            drug={drug}
+            setAddressU={setAddressU}
+            setCityAddressU={setCityAddressU}
+            setCountryAddressU={setCountryAddressU}
+            setDebit={setDebit}
+            setPostalAddressU={setPostalAddressU}
+            debit={debit}
+            dataList={dataList}
+            countryDrug={countryDrug}
+          />
+
+          <PetAnimal drug={drug} setPet={setPet} />
 
           <div className="collapsible">
             {error.length > 0 ? <div className="popup">{error}</div> : null}

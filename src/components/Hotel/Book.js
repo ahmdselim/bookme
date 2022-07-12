@@ -20,7 +20,7 @@ const Book = (props) => {
     <div className="drugBook">
       <h2>التوافر</h2>
       <h5>متى ترغب بالإقامة في {data.data.nameDrug}</h5>
-      <div className="row">
+      {/* <div className="row">
         <form>
           <input type="date" />
           <input type="date" />
@@ -41,7 +41,7 @@ const Book = (props) => {
           </select>
           <button>تطبيق التغيرات</button>
         </div>
-      </div>
+      </div> */}
       <BookTable data={data} />
       <InfoDrug data={data} />
     </div>

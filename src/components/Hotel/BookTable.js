@@ -17,8 +17,9 @@ const BookTable = (props) => {
         <thead>
           <tr>
             <td>نوع الغرفة</td>
+            <td>عدد الشقق</td>
             <td>تتّسِع</td>
-            <td>سعر اليوم </td>
+            <td>سعر اليوم للشقة الواحدة</td>
           </tr>
         </thead>
         <tbody>
@@ -51,11 +52,17 @@ const BookTable = (props) => {
                 </li>
               </ul>
             </td>
-            <td>{data.data.drug === "apartment" ? 1 : data.data.numGuest}</td>
+            <td>
+              {data.data.drug === "apartment" ? 1 : data.data.MultiApartment}
+            </td>
+            <td>{data.data.numGuest}</td>
             <td>
               {data.data.drug === "apartment"
-                ? data.data.priceApartment
-                : data.data.numGuest * data.data.priceApartment}
+                ? data.data.priceApartment * 1 * data.data.numGuest
+                : null}
+              <br />
+              <br />
+              <button>احجز الان</button>
             </td>
           </tr>
         </tbody>
