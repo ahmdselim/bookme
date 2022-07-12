@@ -1,0 +1,149 @@
+@import "../variables";
+.container {
+  .login {
+    width: 85%;
+    margin: auto;
+    padding: 10px;
+    h2 {
+      text-align: center;
+    }
+    form {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      width: 100%;
+      margin-bottom: 30px;
+      label {
+        font-size: 13px;
+        font-weight: 600;
+      }
+
+      > input {
+        padding: 4px 8px;
+        height: 16px;
+        margin-bottom: 10px;
+      }
+      > button {
+        height: auto;
+        background-color: #0071c2;
+        border: 1px solid #0071c2;
+        color: #fff;
+        padding: 8px 16px;
+        cursor: pointer;
+        font-weight: 600;
+
+        &:hover {
+          background-color: #00487a;
+          border-color: #00487a;
+        }
+      }
+    }
+    hr {
+      width: 30%;
+      border-color: #a8969626;
+    }
+    p {
+      text-align: center;
+      font-size: 12px;
+      font-weight: 600;
+    }
+  }
+}
+
+/* Start Media Query */
+/* Extra small devices (phones, 600px and down) */
+@media only screen and ($ExtraSmallDevices) {
+  .container {
+    .login {
+      width: 95%;
+      form {
+        input {
+          width: 90%;
+        }
+        button {
+          width: 95%;
+        }
+      }
+      hr {
+        width: 90%;
+      }
+    }
+  }
+}
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and ($SmallDevices) {
+  .container {
+    .login {
+      width: 95%;
+      form {
+        input {
+          width: 80%;
+        }
+        button {
+          width: 85%;
+        }
+      }
+      hr {
+        width: 80%;
+      }
+    }
+  }
+}
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and ($MediumDevices) {
+  .container {
+    .login {
+      width: 95%;
+      form {
+        input {
+          width: 50%;
+        }
+        button {
+          width: 55%;
+        }
+      }
+      hr {
+        width: 50%;
+      }
+    }
+  }
+}
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and ($LargeDevices) {
+  .container {
+    .login {
+      width: 85%;
+      form {
+        input {
+          width: 40%;
+        }
+        button {
+          width: 45%;
+        }
+      }
+      hr {
+        width: 40%;
+      }
+    }
+  }
+}
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and ($ExtraLargeDevices) {
+  .container {
+    .login {
+      width: 85%;
+      form {
+        input {
+          width: 30%;
+        }
+        button {
+          width: 35%;
+        }
+      }
+      hr {
+        width: 30%;
+      }
+    }
+  }
+}
