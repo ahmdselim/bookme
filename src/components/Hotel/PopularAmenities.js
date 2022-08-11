@@ -1,4 +1,16 @@
-import React, { Fragment } from "react";
+import React, { useRef, Fragment, useState, useMemo, useCallback } from "react";
+import {
+  MapContainer,
+  TileLayer,
+  useMap,
+  Marker,
+  Popup,
+  Tooltip,
+} from "react-leaflet";
+import "leaflet/dist/leaflet.css";
+import useGeoLocation from "../AppointmentBooking/drug/useGeoLocation";
+
+import L from "leaflet";
 import { AiOutlineWifi } from "react-icons/ai";
 import { GiTheater } from "react-icons/gi";
 import { MdOutlineAir } from "react-icons/md";
@@ -14,6 +26,16 @@ import { BsHeart, BsLightning } from "react-icons/bs";
 
 const PopularAmenities = (props) => {
   const { data } = props;
+  const location = useGeoLocation();
+
+  const mapRef = useRef();
+  const markerIcon = new L.Icon({
+    iconUrl: require("../../images/marker.png"),
+    iconSize: [40, 40],
+    iconAnchor: [17, 46], //[left/right, top/bottom]
+    popupAnchor: [0, -46], //[left/right, top/bottom]
+  });
+
   return (
     <>
       <div className="drugDesc">
@@ -124,6 +146,30 @@ const PopularAmenities = (props) => {
             </div>
           ) : null}
         </div>
+
+        <MapContainer
+          center={[data.data.lat, data.data.lng]}
+          zoom={9}
+          scrollWheelZoom={false}
+          ref={mapRef}
+        >
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+          {location.loaded && !location.error && (
+            <>
+              <Marker
+                position={[data.data.lat, data.data.lng]}
+                icon={markerIcon}
+              >
+                <Tooltip sticky>
+                  <strong>{data.data.nameDrug}</strong>
+                </Tooltip>
+              </Marker>
+            </>
+          )}
+        </MapContainer>
       </div>
     </>
   );

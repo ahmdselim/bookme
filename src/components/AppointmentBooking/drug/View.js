@@ -3,7 +3,6 @@ import React from "react";
 const View = ({ drug, setBalcony, setGardenView, setHead, setView }) => {
   return (
     <>
-      {" "}
       <div className="collapsible">
         <input type="checkbox" id="collapsible-head9" />
         <label htmlFor="collapsible-head9" className="collapsibleLabel">
@@ -13,9 +12,13 @@ const View = ({ drug, setBalcony, setGardenView, setHead, setView }) => {
           {drug === "apartment" ||
           drug === "house" ||
           drug === "hotel" ||
-          drug === "castle" ? (
+          drug === "castle" ||
+          drug === "relaxation" ||
+          drug === "chalet" ||
+          drug === "camp" ||
+          drug === "caravan" ? (
             <>
-              <label>وسائل الراحة الخارجية والإطلالة</label>
+              <span>وسائل الراحة الخارجية والإطلالة</span>
               <br />
               <br />
               <input
@@ -23,32 +26,36 @@ const View = ({ drug, setBalcony, setGardenView, setHead, setView }) => {
                 onChange={(e) => setBalcony(e.target.value)}
                 className="as"
                 value="balcony"
+                id="balcony"
               />
-              <span>شرفة</span>
+              <label htmlFor="balcony">شرفة</label>
               <br />
               <input
                 type="checkbox"
                 onChange={(e) => setGardenView(e.target.value)}
                 className="as"
                 value="gardenView"
+                id="gardenView"
               />
-              <span> إطلالة على الحديقة</span>
+              <label htmlFor="gardenView"> إطلالة على الحديقة</label>
               <br />
               <input
                 type="checkbox"
                 onChange={(e) => setHead(e.target.value)}
                 className="as"
                 value="head"
+                id="head"
               />
-              <span> تراس</span>
+              <label htmlFor="head"> تراس</label>
               <br />
               <input
                 type="checkbox"
                 onChange={(e) => setView(e.target.value)}
                 className="as"
                 value="view"
+                id="view"
               />
-              <span> إطلالة</span>
+              <label htmlFor="view"> إطلالة</label>
             </>
           ) : null}
         </div>

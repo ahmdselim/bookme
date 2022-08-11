@@ -40,7 +40,7 @@ const Country = () => {
               <SwiperSlide>
                 <img src={img1} alt="swiper" />
                 <h4>{data.data.countryDrug}</h4>
-                <span> 120 مكان اقامة</span>
+                {/* <span> 120 مكان اقامة</span> */}
               </SwiperSlide>
             </Fragment>
           ))}

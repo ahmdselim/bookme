@@ -39,7 +39,7 @@ const Categories = () => {
               <SwiperSlide>
                 <img src={img1} alt="swiper" />
                 <h4>{data.data.cityDrug}</h4>
-                <span> 120 مكان اقامة</span>
+                {/* <span> 120 مكان اقامة</span> */}
               </SwiperSlide>
             </Fragment>
           ))}

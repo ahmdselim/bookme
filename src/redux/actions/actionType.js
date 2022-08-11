@@ -6,3 +6,5 @@ export const CREATE_USER = "CREATE_USER";
 export const GET_USERS = "GET_USERS";
 export const ADD_DRUG_TO_FAVORITE = "ADD_DRUG_TO_FAVORITE";
 export const GET_FAV_DRUG = "GET_FAV_DRUG";
+export const ADD_BOOKING = "ADD_BOOKING";
+export const GET_BOOKING = "GET_BOOKING";

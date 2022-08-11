@@ -12,11 +12,14 @@ const PetAnimal = ({ drug, setPet }) => {
           {drug === "apartment" ||
           drug === "house" ||
           drug === "hotel" ||
-          drug === "castle" ? (
+          drug === "castle" ||
+          drug === "relaxation" ||
+          drug === "chalet" ||
+          drug === "camp" ||
+          drug === "caravan" ? (
             <>
-              {" "}
               <h3>
-                هل تسح بالحيوانات الاليفه في{" "}
+                هل تسح بالحيوانات الاليفه في
                 {drug === "apartment"
                   ? " شقتك "
                   : drug === "house"
@@ -28,20 +31,24 @@ const PetAnimal = ({ drug, setPet }) => {
                   : " منتجعك "}
               </h3>
               <input
-                type="checkbox"
+                type="radio"
                 value="yesPet"
                 onChange={(e) => setPet(e.target.value)}
                 className="as"
+                id="yesPet"
+                name="pet"
               />
-              <label>نعم</label>
+              <label htmlFor="yesPet">نعم</label>
               <br />
               <input
-                type="checkbox"
+                type="radio"
                 value="noPet"
+                id="noPet"
                 onChange={(e) => setPet(e.target.value)}
                 className="as"
+                name="pet"
               />
-              <label>لا</label>
+              <label htmlFor="noPet">لا</label>
             </>
           ) : null}
         </div>

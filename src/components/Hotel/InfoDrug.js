@@ -8,6 +8,7 @@ import info from "../../images/info.ico";
 import family from "../../images/family.ico";
 import petDog from "../../images/petDog.ico";
 import creditCard from "../../images/creditCard.ico";
+import phone from "../../images/phone.ico";
 
 const InfoDrug = (props) => {
   const { data } = props;
@@ -84,6 +85,21 @@ const InfoDrug = (props) => {
               <span>الحيوانات الأليفة مسموح بها</span>
             ) : (
               <span>الحيوانات الأليفة غير مسموح بها</span>
+            )}
+          </li>
+
+          <li>
+            <div>
+              <img src={phone} />
+              <span>خدمة عملاء العقار</span>
+            </div>
+            {data.data.clientPhone === "" ? (
+              <span>
+                هذا العقار لا يملك رقم خدمه للعملاء الرجاء التواصل معهم عن طريق
+                البريد الالكتروني
+              </span>
+            ) : (
+              <span>{data.data.clientPhone}</span>
             )}
           </li>
 

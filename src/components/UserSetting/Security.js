@@ -13,30 +13,18 @@ const Security = () => {
   const [user, loading] = useAuthState(auth);
   const userList =
     users && users.filter((person) => person.data.uid === user.uid);
-  // const newPassword = getASecureRandomPassword();
-  // const credential = promptForCredentials();
-  console.log(user);
 
   const handleUpdateUserPassword = () => {
     const updateUserPassword = () => {
-      // reauthenticateWithCredential(user, credential)
-      //   .then(() => {
-      //     // User re-authenticated.
-      //     updatePassword(user, "password")
-      //       .then(() => {
-      //         console.log("successful");
-      //       })
-      //       .catch((error) => {
-      //         console.log(error);
-      //       });
-      //     setOpen(!open);
-      //     getUsers(dispatch);
-      //   })
-      //   .catch((error) => {
-      //     // An error ocurred
-      //     // ...
-      //   });
-      updatePasswordN(user, password);
+      updatePassword(user, password)
+        .then(() => {
+          updatePasswordN(
+            userList && userList.map((person) => person.id).toString(),
+            password
+          );
+        })
+        .catch((error) => {});
+
       setOpen(!open);
       getUsers(dispatch);
     };

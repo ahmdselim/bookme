@@ -42,6 +42,7 @@ const registerWithEmailAndPassword = async (email, password) => {
       dateOfBirth: "",
       gender: "",
       status: 0,
+      userImage: "",
       date: new Date(),
     });
   } catch (err) {

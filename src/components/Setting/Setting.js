@@ -1,7 +1,7 @@
-import React from "react";
-import { AiOutlineUserSwitch } from "react-icons/ai";
-import { GrSecure } from "react-icons/gr";
-import { Link } from "react-router-dom";
+  import React from "react";
+  import { AiOutlineUserSwitch } from "react-icons/ai";
+  import { GrSecure } from "react-icons/gr";
+  import { Link } from "react-router-dom";
 const Setting = () => {
   return (
     <div className="setting">

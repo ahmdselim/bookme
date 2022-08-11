@@ -1,15 +1,40 @@
 import React, { useState } from "react";
-import user from "../../images/user.png";
+import userImage from "../../images/user.png";
 import width from "../../images/width.png";
 import shower from "../../images/shower.ico";
-const BookTable = ({ data }) => {
-  const [days, setDays] = useState("");
-  const [gusts, setGusts] = useState("");
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../../firebase/config";
+import { useNavigate } from "react-router-dom";
+
+const BookTable = ({
+  data,
+  setBook,
+  book,
+  days,
+  setTo,
+  setFrom,
+  gusts,
+  setGusts,
+  to,
+  from,
+}) => {
+  const [user, loading] = useAuthState(auth);
+  const navigate = useNavigate();
+  const diffInMs = new Date(to) - new Date(from);
+  const diffInDays = diffInMs / (1000 * 60 * 60 * 24);
+  const [error, setError] = useState([]);
   let list = [];
   for (let i = 1; i <= 30; i++) {
     list.push(i);
   }
-  const handleChooseDay = (e) => {};
+
+  const checkBook = () => {
+    if (to === "") {
+      setError("من فضلك ادخل تاريخ حجزك");
+    } else if (from === "") {
+      setError("من فضلك ادخل تاريخ حجزك");
+    } else setBook(!book);
+  };
   return (
     <div className="drugTable">
       <table>
@@ -62,44 +87,64 @@ const BookTable = ({ data }) => {
               </ul>
             </td>
             <td>
-              {data.data.drug === "apartment" ? 1 : data.data.MultiApartment}
+              {data.data.apartment === "oneApartment"
+                ? 1
+                : data.data.apartment === "multiApartment"
+                ? data.data.MultiApartment
+                : null}
             </td>
             <td>{data.data.numOfRooms}</td>
             <td>
-              <select onChange={(e) => setDays(e.target.value)}>
-                <option value="">اختار عدد الايام</option>
-                {list.map((list) => (
-                  <option value={list}>{list}</option>
+              <select onChange={(e) => setGusts(e.target.value)}>
+                <option value="">اختار عدد الضيوف</option>
+                {list.map((list, i) => (
+                  <option key={i} value={list}>
+                    {list}
+                  </option>
                 ))}
               </select>
             </td>
             <td>
-              <select onChange={(e) => setGusts(e.target.value)}>
-                <option value="">اختار عدد الايام</option>
-                {list.map((list) => (
-                  <option value={list}>{list}</option>
-                ))}
-              </select>
+              <strong>من</strong>
+              <br />
+              <input
+                type="datetime-local"
+                // minDate={new Date()}
+                onChange={(e) => setFrom(e.target.value)}
+                min={new Date().toISOString().slice(0, 10)}
+              />
+              <br />
+              <strong>الي</strong>
+              <br />
+              <input
+                type="datetime-local"
+                // minDate={new Date()}
+                onChange={(e) => setTo(e.target.value)}
+                min={new Date().toISOString().slice(0, 10)}
+              />
+              {error.length > 0 ? <p>{error}</p> : null}
             </td>
             <td>{data.data.numGuest}</td>
             <td>
-              {/* {days !== "" || gusts !== ""
-                ? data.data.priceApartment * days * gusts
-                : days === ""
-                ? data.data.priceApartment * 1 * gusts
-                : gusts === ""
-                ? data.data.priceApartment * days * 1
-                : data.data.priceApartment * 1 * 1} */}
-              {days === "" && gusts === ""
+              {!diffInDays && gusts === ""
                 ? data.data.priceApartment * 1 * 1
-                : days === ""
+                : !diffInDays
                 ? data.data.priceApartment * 1 * gusts
                 : gusts === ""
-                ? data.data.priceApartment * 1 * days
-                : data.data.priceApartment * days * gusts}
+                ? data.data.priceApartment * 1 * diffInDays
+                : data.data.priceApartment * diffInDays * gusts}
+
               <br />
               <br />
-              <button>احجز الان</button>
+              {user ? (
+                <button onClick={() => checkBook()} id="book">
+                  احجز الان
+                </button>
+              ) : (
+                <button onClick={() => navigate("/login")} id="book">
+                  الرجاء تسجيل الدخول
+                </button>
+              )}
             </td>
           </tr>
         </tbody>

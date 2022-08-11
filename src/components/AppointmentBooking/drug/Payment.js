@@ -22,7 +22,11 @@ const Payment = ({
           {drug === "apartment" ||
           drug === "house" ||
           drug === "hotel" ||
-          drug === "castle" ? (
+          drug === "castle" ||
+          drug === "relaxation" ||
+          drug === "chalet" ||
+          drug === "camp" ||
+          drug === "caravan" ? (
             <>
               <h3>خيارات الدفع المتاحة للضيوف</h3>
               <h4>

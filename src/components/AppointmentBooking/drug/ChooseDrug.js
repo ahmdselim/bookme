@@ -31,12 +31,17 @@ const ChooseDrug = ({
   setMultiApartment,
   apartment,
   setNumOfRooms,
+  setClientPhone,
 }) => {
   // Start info functions
   const showInfo = () => {
     return (
       <>
-        <label>سعر الشقة الواحدة للفرد</label>
+        <label>رقم خدمة العملاء</label>
+        <input type="number" onChange={(e) => setClientPhone(e.target.value)} />
+        <br />
+        <label>السعر</label>
+        <br />
         <input
           type="number"
           onChange={(e) => setPriceApartment(e.target.value)}
@@ -50,10 +55,7 @@ const ChooseDrug = ({
         <br />
         <label>كم عدد الغرف</label>
         <br />
-        <input
-          type="number"
-          onChange={(e) => setNumOfRooms(e.target.value)}
-        />{" "}
+        <input type="number" onChange={(e) => setNumOfRooms(e.target.value)} />
         <br />
         <label>كم عدد الحمامات المتوفرة ؟ </label>
         <br />
@@ -111,19 +113,88 @@ const ChooseDrug = ({
   // End info functions
 
   const showApartment = () => {
-    if (drug === "apartment") {
+    if (
+      drug === "apartment" ||
+      drug === "relaxation" ||
+      drug === "castle" ||
+      drug === "chalet" ||
+      drug === "camp" ||
+      drug === "caravan"
+    ) {
       return (
         <>
           <select onChange={(e) => setApartment(e.target.value)}>
-            <option>عدد الشقق</option>
-            <option value="oneApartment">شقة واحدة</option>
-            <option value="multipleApartment">عدة شقق</option>
+            <option>
+              عدد
+              {drug === "apartment"
+                ? " الشقق "
+                : drug === "castle"
+                ? " القصور "
+                : drug === "relaxation"
+                ? "استراحة"
+                : drug === "chalet"
+                ? "شاليه"
+                : drug === "camp"
+                ? "مخيم"
+                : drug === "caravan"
+                ? "كرفان"
+                : null}
+            </option>
+            <option value="oneApartment">
+              {drug === "apartment"
+                ? " شقة "
+                : drug === "castle"
+                ? " قصر "
+                : drug === "relaxation"
+                ? "استراحة"
+                : drug === "chalet"
+                ? "شاليه"
+                : drug === "camp"
+                ? "مخيم"
+                : drug === "caravan"
+                ? "كرفان"
+                : null}{" "}
+              واحدة
+            </option>
+            <option value="multipleApartment">
+              عدة 
+              {drug === "apartment"
+                ? " شقة "
+                : drug === "castle"
+                ? " قصور "
+                : drug === "relaxation"
+                ? "استراحة"
+                : drug === "chalet"
+                ? "شاليه"
+                : drug === "camp"
+                ? "مخيم"
+                : drug === "caravan"
+                ? "كرفان"
+                : null}
+              
+            </option>
           </select>
 
           {apartment === "multipleApartment" ? (
             <>
               <br />
-              <label>عدد الشقق : </label>
+              <label>
+                عدد{" "}
+                {drug === "apartment"
+                  ? " شقق "
+                  : drug === "castle"
+                  ? " قصور "
+                  : drug === "relaxation"
+                  ? "استراحة"
+                  : drug === "chalet"
+                  ? "شاليه"
+                  : drug === "camp"
+                  ? "مخيم"
+                  : drug === "caravan"
+                  ? "كرفان"
+                  : null}{" "}
+                :{" "}
+              </label>
               <br />
               <input
                 type="number"
@@ -259,12 +330,21 @@ const ChooseDrug = ({
             <option value="">اختر عقارك</option>
             <option value="apartment">شقة</option>
             <option value="house">بيوت</option>
-            <option value="hotel">فتادق</option>
+            <option value="hotel">فنادق</option>
             <option value="castle">قصور</option>
+            <option value="relaxation">استراحة</option>
+            <option value="chalet">شاليه</option>
+            <option value="camp">مخيم</option>
+            <option value="caravan">كرفان</option>
           </select>
           {drug === "apartment" ? showApartment() : null}
           {drug === "house" ? showHouse() : null}
           {drug === "hotel" ? showHotel() : null}
+          {drug === "castle" ? showApartment() : null}
+          {drug === "relaxation" ? showApartment() : null}
+          {drug === "chalet" ? showApartment() : null}
+          {drug === "camp" ? showApartment() : null}
+          {drug === "caravan" ? showApartment() : null}
         </div>
       </div>
     </>

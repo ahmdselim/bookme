@@ -18,7 +18,11 @@ const CheckIn = ({
           {drug === "apartment" ||
           drug === "house" ||
           drug === "hotel" ||
-          drug === "castle" ? (
+          drug === "castle" ||
+          drug === "relaxation" ||
+          drug === "chalet" ||
+          drug === "camp" ||
+          drug === "caravan" ? (
             <form>
               <p>تسجيل الدخول</p>
               <div className="row">

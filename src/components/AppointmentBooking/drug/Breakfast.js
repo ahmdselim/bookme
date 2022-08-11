@@ -13,7 +13,11 @@ const Breakfast = ({
       drug === "apartment" ||
       drug === "house" ||
       drug === "hotel" ||
-      drug === "castle"
+      drug === "castle" ||
+      drug === "relaxation" ||
+      drug === "chalet" ||
+      drug === "camp" ||
+      drug === "caravan"
     ) {
       if (breakfast === "breakfastYes") {
         return (
@@ -65,13 +69,21 @@ const Breakfast = ({
           {drug === "apartment" ||
           drug === "house" ||
           drug === "hotel" ||
-          drug === "castle" ? (
+          drug === "castle" ||
+          drug === "relaxation" ||
+          drug === "chalet" ||
+          drug === "camp" ||
+          drug === "caravan" ? (
             <select onChange={(e) => setBreakfast(e.target.value)}>
               <option>هل تقدّم وجبة الإفطار للضيوف؟</option>
               {drug === "apartment" ||
               drug === "house" ||
               drug === "hotel" ||
-              drug === "castle" ? (
+              drug === "castle" ||
+              drug === "relaxation" ||
+              drug === "chalet" ||
+              drug === "camp" ||
+              drug === "caravan" ? (
                 <>
                   <option value="breakfastYes">نعم</option>
                   <option value="breakfastNo">لا </option>
@@ -83,7 +95,11 @@ const Breakfast = ({
           {drug === "apartment" ||
           drug === "house" ||
           drug === "hotel" ||
-          drug === "castle"
+          drug === "castle" ||
+          drug === "relaxation" ||
+          drug === "chalet" ||
+          drug === "camp" ||
+          drug === "caravan"
             ? showBreakfast()
             : null}
         </div>

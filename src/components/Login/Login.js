@@ -39,7 +39,7 @@ const Login = () => {
   }, [user, loading, navigate]);
   return (
     <div className="login">
-      <h2>سجّل الدخول أو أنشئ حساباً</h2>
+      <h2>سجّل الدخول</h2>
       <form onSubmit={login}>
         <label>عنوان البريد الإلكتروني</label>
         <input
@@ -53,9 +53,18 @@ const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
           value={password}
         />
-        {/* <label>تأكيد كلمة المرور</label>
-        <input type="password" /> */}
-        <button>إنشاء حساب</button>
+        <button>تسجيل دخول</button>
+        <Link
+          to="/rest"
+          style={{
+            color: "#000",
+            fontSize: "13px",
+            fontWeight: "700",
+            marginTop: "10px",
+          }}
+        >
+          لقد نسيت كلمة السر؟
+        </Link>
       </form>
       <hr />
       {error.length > 1 ? (

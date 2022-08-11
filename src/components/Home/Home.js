@@ -4,7 +4,6 @@ import Footer from "./Footer";
 import Header from "./Header";
 import Nav from "./Nav";
 import Navbar from "./Navbar";
-import { Outlet } from "react-router-dom";
 
 const Home = () => {
   return (
@@ -14,7 +13,6 @@ const Home = () => {
       <Header />
       <Content />
       <Footer />
-      <Outlet />
     </>
   );
 };

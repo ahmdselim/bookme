@@ -1,5 +1,11 @@
 @import "../variables";
 
+.binoculars {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  margin: 5px 15px 0 15px;
+}
 .wrapper {
   display: flex;
   justify-content: flex-start;
@@ -78,6 +84,7 @@ input.as {
     width: 85%;
     margin: auto;
     padding: 10px;
+    position: relative;
     .wrapper {
       .popup {
         padding: 10px 20px;
@@ -88,6 +95,17 @@ input.as {
         font-size: 14px;
         width: 300px;
         margin: auto;
+        position: fixed;
+        top: 20%;
+        z-index: 1000;
+        justify-content: flex-start;
+        align-items: center;
+        span {
+          margin-right: 15px;
+        }
+        svg {
+          cursor: pointer;
+        }
       }
       .collapsible {
         .collapsible-text {
@@ -161,7 +179,7 @@ input.as {
       padding: 10px;
       width: 60%;
       > div {
-        max-width:100%;
+        max-width: 100%;
         flex-basis: 100%;
         .image {
           display: flex;
@@ -212,6 +230,12 @@ input.as {
       }
       .drugUpload {
         width: 100%;
+        margin: 0%;
+      }
+      .wrapper {
+        .popup {
+          right: 5%;
+        }
       }
     }
   }
@@ -225,6 +249,12 @@ input.as {
       }
       .drugUpload {
         width: 100%;
+        margin: 0;
+      }
+      .wrapper {
+        .popup {
+          right: 20%;
+        }
       }
     }
   }
@@ -239,6 +269,11 @@ input.as {
       .drugUpload {
         width: 60%;
       }
+      .wrapper {
+        .popup {
+          right: 30%;
+        }
+      }
     }
   }
 }
@@ -252,6 +287,11 @@ input.as {
       .drugUpload {
         width: 60%;
       }
+      .wrapper {
+        .popup {
+          right: 40%;
+        }
+      }
     }
   }
 }
@@ -264,6 +304,11 @@ input.as {
       }
       .drugUpload {
         width: 60%;
+      }
+      .wrapper {
+        .popup {
+          right: 40%;
+        }
       }
     }
   }

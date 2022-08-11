@@ -10,7 +10,6 @@ const Language = ({
 }) => {
   return (
     <>
-      {" "}
       <div className="collapsible">
         <input type="checkbox" id="collapsible-head4" />
         <label htmlFor="collapsible-head4" className="collapsibleLabel">
@@ -20,47 +19,56 @@ const Language = ({
           {drug === "apartment" ||
           drug === "house" ||
           drug === "hotel" ||
-          drug === "castle" ? (
+          drug === "castle" ||
+          drug === "relaxation" ||
+          drug === "chalet" ||
+          drug === "camp" ||
+          drug === "caravan" ? (
             <>
               <input
                 className="as"
                 type="checkbox"
                 value="english"
                 onChange={(e) => setEnglish(e.target.value)}
+                id="en"
               />
-              <label>الإنجليزية</label>
+              <label htmlFor="en">الإنجليزية</label>
               <br />
               <input
                 className="as"
                 type="checkbox"
                 value="arabic"
                 onChange={(e) => setArabic(e.target.value)}
+                id="ar"
               />
-              <label>العربية</label>
+              <label htmlFor="ar">العربية</label>
               <br />
               <input
                 className="as"
                 type="checkbox"
                 value="german"
                 onChange={(e) => setGerman(e.target.value)}
+                id="gr"
               />
-              <label>الألمانية</label>
+              <label htmlFor="gr">الألمانية</label>
               <br />
               <input
                 className="as"
                 type="checkbox"
                 value="frensh"
                 onChange={(e) => setFrench(e.target.value)}
+                id="fr"
               />
-              <label>الفرنسية</label>
+              <label htmlFor="fr">الفرنسية</label>
               <br />
               <input
                 className="as"
                 type="checkbox"
                 value="spanish"
                 onChange={(e) => setSpanish(e.target.value)}
+                id="sp"
               />
-              <label>الإسبانية</label>
+              <label htmlFor="sp">الإسبانية</label>
               <br />
             </>
           ) : null}

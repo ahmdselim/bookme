@@ -17,9 +17,13 @@ const KitchenAndlaundry = ({
           {drug === "apartment" ||
           drug === "house" ||
           drug === "hotel" ||
-          drug === "castle" ? (
+          drug === "castle" ||
+          drug === "relaxation" ||
+          drug === "chalet" ||
+          drug === "camp" ||
+          drug === "caravan" ? (
             <>
-              <label>المطبخ وغسيل الملابس</label>
+              <span>المطبخ وغسيل الملابس</span>
               <br />
               <br />
               <input
@@ -27,24 +31,27 @@ const KitchenAndlaundry = ({
                 onChange={(e) => setKitchen(e.target.value)}
                 className="as"
                 value="kitchen"
+                id="kitchen"
               />
-              <span>مطبخ</span>
+              <label htmlFor="kitchen">مطبخ</label>
               <br />
               <input
                 type="checkbox"
                 onChange={(e) => setSmallKitchen(e.target.value)}
                 className="as"
                 value="smallKitchen"
+                id="smallKitchen"
               />
-              <span>مطبخ صغير</span>
+              <label htmlFor="smallKitchen">مطبخ صغير</label>
               <br />
               <input
                 type="checkbox"
                 onChange={(e) => setWashingMachine(e.target.value)}
                 className="as"
                 value="washingMachine"
+                id="washingMachine"
               />
-              <span> غسالة ملابس</span>
+              <label htmlFor="washingMachine"> غسالة ملابس</label>
             </>
           ) : null}
         </div>

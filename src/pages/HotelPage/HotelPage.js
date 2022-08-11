@@ -9,7 +9,7 @@ const HotelPage = () => {
   return (
     <div className="container">
       <Navbar />
-      <Hotel />{" "}
+      <Hotel />
       <div className="content">
         <Subscribe />
       </div>

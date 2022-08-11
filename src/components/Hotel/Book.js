@@ -2,20 +2,24 @@ import React from "react";
 import BookTable from "./BookTable";
 import InfoDrug from "./InfoDrug";
 
-const Book = (props) => {
-  const { data } = props;
+const Book = ({
+  data,
+  setBook,
+  book,
+  days,
+  setDays,
+  gusts,
+  setTo,
+  setFrom,
+  setGusts,
+  to,
+  from,
+}) => {
   const list = [];
   for (let i = 0; i < 20; i++) {
     list.push({ i });
   }
 
-  const selected = () => {
-    return (
-      <select>
-        <option>عدد الغرف</option>
-      </select>
-    );
-  };
   return (
     <div className="drugBook">
       <h2>التوافر</h2>
@@ -42,7 +46,19 @@ const Book = (props) => {
           <button>تطبيق التغيرات</button>
         </div>
       </div> */}
-      <BookTable data={data} />
+      <BookTable
+        data={data}
+        setBook={setBook}
+        book={book}
+        days={days}
+        setDays={setDays}
+        gusts={gusts}
+        setGusts={setGusts}
+        setFrom={setFrom}
+        setTo={setTo}
+        to={to}
+        from={from}
+      />
       <InfoDrug data={data} />
     </div>
   );

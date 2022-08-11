@@ -1,16 +1,12 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import { auth, db, storage } from "../../firebase/config";
 import { BsCalendar4, BsPeople } from "react-icons/bs";
 import { FcWorkflow } from "react-icons/fc";
-import {
-  addDrugs,
-  getDrugs,
-  updateName,
-} from "../../redux/actions/actionCreator";
-import { useDispatch, useSelector } from "react-redux";
+import { addDrugs, getDrugs } from "../../redux/actions/actionCreator";
+import { useDispatch } from "react-redux";
 import ChooseDrug from "./drug/ChooseDrug";
 import Residence from "./drug/Residence";
 import Comfort from "./drug/Comfort";
@@ -23,11 +19,16 @@ import ImagesMain from "./drug/ImagesMain";
 import CheckIn from "./drug/CheckIn";
 import Payment from "./drug/Payment";
 import PetAnimal from "./drug/PetAnimal";
+import MapLocation from "./drug/MapLocation";
+import useGeoLocation from "./drug/useGeoLocation";
+import Images from "./drug/Images";
+import { AiOutlineClose } from "react-icons/ai";
 
 const AppointmentBooking = () => {
   const dispatch = useDispatch();
   const [drug, setDrug] = useState("");
   const [residence, setResidence] = useState("");
+  const [clientPhone, setClientPhone] = useState("");
   const [apartment, setApartment] = useState("");
   const [breakfast, setBreakfast] = useState("");
   const [lunchBreakfast, setLunchBreakfast] = useState("");
@@ -96,6 +97,53 @@ const AppointmentBooking = () => {
   const [image, setImage] = useState("");
   const navigate = useNavigate();
   const [numOfRooms, setNumOfRooms] = useState("");
+  const location = useGeoLocation();
+  const [url1, setUrl1] = useState("");
+  const [url2, setUrl2] = useState([]);
+  const [position, setPosition] = useState({ lat: 50.44, lng: 30.045 });
+  const [promise, setPromise] = useState("");
+  const [showButton, setShowButton] = useState(false);
+  const intervalRef = useRef(null);
+  const [time, setTimer] = useState("00:00:00");
+  const [close, setClose] = useState(false);
+
+  function getTimeRemaining(endtime) {
+    const total = Date.parse(endtime) - Date.parse(new Date());
+    const seconds = Math.floor((total / 1000) % 60);
+    const minutes = Math.floor((total / 1000 / 60) % 60);
+    const hours = Math.floor(((total / 1000) * 60 * 60) % 24);
+    const days = Math.floor((total / 1000) * 60 * 60 * 24);
+    return { total, days, hours, minutes, seconds };
+  }
+  function startTimer(deadline) {
+    let { total, days, hours, minutes, seconds } = getTimeRemaining(deadline);
+    if (total >= 0) {
+      setTimer(
+        (hours > 9 ? hours : "0" + hours) +
+          ":" +
+          (minutes > 9 ? minutes : "0" + minutes) +
+          ":" +
+          (seconds > 9 ? seconds : "0" + seconds)
+      );
+    } else {
+      clearInterval(intervalRef.current);
+    }
+  }
+  function clearTimer(endtime) {
+    setTimer("00:00:30");
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
+    const id = setInterval(() => {
+      startTimer(endtime);
+    }, 1000);
+    intervalRef.current = id;
+  }
+  function getDeadlineTime() {
+    let deadline = new Date();
+    deadline.setSeconds(deadline.getSeconds() + 30);
+    return deadline;
+  }
 
   useEffect(() => {
     if (loading) {
@@ -110,15 +158,24 @@ const AppointmentBooking = () => {
       })
       .then((data) => setData(data))
       .catch((err) => console.log(err));
+
+    clearTimer(getDeadlineTime());
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
   }, [user, loading, navigate]);
 
   const showDrugUpload = () => {
+    setInterval(() => {
+      setShowButton(true);
+    }, 30000);
+
     return (
       <>
         <div className="drugUpload">
           <div>
             <div className="image">
-              {/* <img src={URL.createObjectURL(imageUpload)} /> */}
+              <img src={URL.createObjectURL(imageUpload)} />
               <h3>{nameDrug}</h3>
             </div>
             <p>
@@ -224,6 +281,13 @@ const AppointmentBooking = () => {
                 ? " لن يتم الخصم من البطاقه الائتمانية "
                 : " سيتم الخصم من البطاقة الائتمانية "}
             </p>
+            <p>
+              أتعهد أنا بتحويل مبلغ 5 ريال سعودي
+              <br /> لرقم الحساب المصرفي الدولي التالي
+              <br /> SA1510000032900000090010
+              <br /> في البنك الاهلي السعودي
+              <br /> لحساب السيد : عبدالرحمن العوفي
+            </p>
           </div>
         </div>
 
@@ -260,12 +324,15 @@ const AppointmentBooking = () => {
           </ul>
         </div>
 
-        {disabledAttr === true ? (
-          <button onClick={uploadDrug} disabled>
-            اضافه العقار
-          </button>
-        ) : (
+        {showButton ? (
           <button onClick={uploadDrug}>اضافه العقار</button>
+        ) : (
+          <>
+            <span>
+              من فضلك انتظر ثواني نحن نقوم بتحليل بياناتك وسيظهر زر اضافة العقار
+            </span>
+            <br /> {time}
+          </>
         )}
         <br />
         <br />
@@ -274,103 +341,82 @@ const AppointmentBooking = () => {
     );
   };
 
-  // const handleChangeImage = (e) => {
-  //   e.preventDefault();
-  //   let pickedFiles = [];
-  //   if (e.target.files && e.target.files.length > 0) {
-  //     pickedFiles = e.target.files[0];
-  //     setUrls(pickedFiles);
-  //   }
-  // };
-
   const uploadDrug = (e) => {
     e.preventDefault();
     setDisabledAttr(!disabledAttr);
-    const sotrageRef = ref(storage, `drugMain/${imageUpload.name}`);
-    const uploadTask = uploadBytesResumable(sotrageRef, imageUpload);
 
-    uploadTask.on(
-      "state_changed",
-      (snapshot) => {
-        const prog = Math.round(
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-        );
-        setProgress(prog);
-      },
-      (error) => console.log(error),
-      () => {
-        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          addDrugs(
-            user.uid,
-            drug,
-            apartment,
-            numOfRooms,
-            MultiApartment,
-            priceApartment,
-            nameDrug,
-            countryDrug,
-            streetDrug,
-            postalDrug,
-            cityDrug,
-            house,
-            place,
-            numHouses,
-            privateRoom,
-            numPrivateRoom,
-            hotel,
-            hotelNum,
-            numOfHotels,
-            residence,
-            numSingleBed,
-            numDoubleBed,
-            numBigBed,
-            numVBigBed,
-            numGuest,
-            numBathroom,
-            areaApartment,
-            conditioning,
-            heating,
-            wifi,
-            carCharge,
-            kitchen,
-            smallKitchen,
-            smallBar,
-            washingMachine,
-            flatTv,
-            pool,
-            hootTube,
-            sauna,
-            balcony,
-            gardenView,
-            head,
-            view,
-            breakfast,
-            lunchBreakfast,
-            breakfastPrice,
-            english,
-            arabic,
-            german,
-            french,
-            spanish,
-            downloadURL,
-            loginFrom,
-            loginTo,
-            logoutFrom,
-            logoutTo,
-            debit,
-            countryAddressU,
-            cityAddressU,
-            addressU,
-            postalAddressU,
-            pet,
-            dispatch
-          );
-          getDrugs(dispatch);
-          setError("🎉");
-        });
-        setViewDrug(!viewDrug);
-      }
+    addDrugs(
+      user.uid,
+      clientPhone,
+      url2,
+      drug,
+      apartment,
+      numOfRooms,
+      MultiApartment,
+      priceApartment,
+      nameDrug,
+      countryDrug,
+      streetDrug,
+      postalDrug,
+      cityDrug,
+      house,
+      place,
+      numHouses,
+      privateRoom,
+      numPrivateRoom,
+      hotel,
+      hotelNum,
+      numOfHotels,
+      residence,
+      numSingleBed,
+      numDoubleBed,
+      numBigBed,
+      numVBigBed,
+      numGuest,
+      numBathroom,
+      areaApartment,
+      conditioning,
+      heating,
+      wifi,
+      carCharge,
+      kitchen,
+      smallKitchen,
+      smallBar,
+      washingMachine,
+      flatTv,
+      pool,
+      hootTube,
+      sauna,
+      balcony,
+      gardenView,
+      head,
+      view,
+      breakfast,
+      lunchBreakfast,
+      breakfastPrice,
+      english,
+      arabic,
+      german,
+      french,
+      spanish,
+      url1,
+      loginFrom,
+      loginTo,
+      logoutFrom,
+      logoutTo,
+      debit,
+      countryAddressU,
+      cityAddressU,
+      addressU,
+      postalAddressU,
+      pet,
+      position.lat,
+      position.lng,
+      dispatch
     );
+    getDrugs(dispatch);
+    setError("🎉 مبروك تم اضافة عقارك بنجاح");
+    setViewDrug(!viewDrug);
   };
 
   // Start handleSubmit function
@@ -388,23 +434,17 @@ const AppointmentBooking = () => {
       } else if (drug === "house") {
         if (house === "") {
           setError("من فضلك اختار المكان الذي يمكنه الضيوف حجزه");
-        } else {
-          if (house === "allPlace") {
-            if (place === "") {
-              setError("من فضلك اختار اماكن الاقامة");
-            } else {
-              if (numHouses === "") {
-                setError(`من فضلك اختار عدد ${place}`);
-              }
-            }
-          } else if (house === "privetRoom") {
-            if (privateRoom === "") {
-              setError("من فضلك اختار اماكن الاقامة");
-            } else {
-              if (numPrivateRoom === "") {
-                setError(`من فضلك اختار عدد ${privateRoom}`);
-              }
-            }
+        } else if (house === "allPlace") {
+          if (place === "") {
+            setError("من فضلك اختار اماكن الاقامة");
+          } else if (numHouses === "") {
+            setError(`من فضلك اختار عدد ${place}`);
+          }
+        } else if (house === "privetRoom") {
+          if (privateRoom === "") {
+            setError("من فضلك اختار اماكن الاقامة");
+          } else if (numPrivateRoom === "") {
+            setError(`من فضلك اختار عدد ${privateRoom}`);
           }
         }
       } else if (drug === "hotel") {
@@ -412,17 +452,12 @@ const AppointmentBooking = () => {
           setError(
             "من فضلك اختار اي من الانواع المذكوره في القائمة مشابهة لمكان الاقامة الخاص بك"
           );
-        } else {
-          if (hotelNum === "") {
-            setError(`من فضلك اختار كم عدد ${hotel} التي تدرجها`);
-          } else {
-            if (hotelNum === "") {
-              setError("من فضلك اكتب عدد اماكن الاقامة");
-            }
-          }
+        } else if (hotelNum === "") {
+          setError(`من فضلك اختار كم عدد ${hotel} التي تدرجها`);
+        } else if (numOfHotels === "") {
+          setError("من فضلك اكتب عدد اماكن الاقامة");
         }
-      }
-      if (priceApartment === "") {
+      } else if (priceApartment === "") {
         setError("من فضلك ادخل سعر الغرفة للفرد");
       } else if (nameDrug === "") {
         setError("من فضلك اختار اسم مكان الاقامة");
@@ -434,55 +469,47 @@ const AppointmentBooking = () => {
         setError("من فضلك اختار الرمز البريدي");
       } else if (cityDrug === "") {
         setError("من فضلك اختار المدينة ");
-      }
-      if (residence !== "") {
-        if (residence === "bedroom") {
-          if (numSingleBed === "") {
-            setError("من فضلك اكتب عدد السرير الفردي");
-          } else if (numDoubleBed === "") {
-            setError("من فضلك اكتب عدد السرير المزدوج");
-          } else if (numBigBed === "") {
-            setError("من فضلك اكتب عدد السرير الكبير");
-          } else if (numVBigBed === "") {
-            setError("من فضلك اكتب عدد السرير الكبير جدا");
-          } else if (numGuest === "") {
-            setError("من فضلك اكتب عدد الضيوف الذين يمكنهم الاقامة");
-          } else if (numBathroom === "") {
-            setError("من فضلك اكتب عدد الحمامات المتوفرة");
-          } else if (areaApartment === "") {
-            setError("من فضلك اكتب مساحة الشقة");
-          }
-        } else if (residence === "livingroom") {
-          if (numSingleBed === "") {
-            setError("من فضلك اكتب عدد السرير الفردي");
-          }
-        }
-      } else {
+      } else if (residence === "") {
         setError("من فضلك اختار مكان نوم الضيوف");
       }
-
-      if (breakfast !== "") {
-        if (breakfast === "breakfastYes") {
-          if (lunchBreakfast !== "") {
-            if (lunchBreakfast === "yes") {
-              if (breakfastPrice === "") {
-                setError("من فضلك ادخل سعر وجبه الافطار للشخص الواحد");
-              }
-            }
-          } else {
-            setError(
-              "من فضلك اختار هل السعر الذي سيدفعه الضيف يتضمن وجبه الافطار ام لا"
-            );
+      if (residence === "bedroom") {
+        if (numSingleBed === "") {
+          setError("من فضلك اكتب عدد السرير الفردي");
+        } else if (numDoubleBed === "") {
+          setError("من فضلك اكتب عدد السرير المزدوج");
+        } else if (numBigBed === "") {
+          setError("من فضلك اكتب عدد السرير الكبير");
+        } else if (numVBigBed === "") {
+          setError("من فضلك اكتب عدد السرير الكبير جدا");
+        } else if (numGuest === "") {
+          setError("من فضلك اكتب عدد الضيوف الذين يمكنهم الاقامة");
+        } else if (numBathroom === "") {
+          setError("من فضلك اكتب عدد الحمامات المتوفرة");
+        } else if (areaApartment === "") {
+          setError("من فضلك اكتب مساحة الشقة");
+        }
+      } else if (residence === "livingroom") {
+        if (numSingleBed === "") {
+          setError("من فضلك اكتب عدد السرير الفردي");
+        }
+      } else if (breakfast === "") {
+        setError("من فضلك اختار هل ستقدم وجبة افطار للضيوف ام لا ");
+      } else if (breakfast === "breakfastYes") {
+        if (lunchBreakfast === "") {
+          setError(
+            "من فضلك اختار هل السعر الذي سيدفعه الضيف يتضمن وجبه الافطار ام لا"
+          );
+        } else if (lunchBreakfast === "yes") {
+          if (breakfastPrice === "") {
+            setError("من فضلك ادخل سعر وجبه الافطار للشخص الواحد");
           }
         }
       }
-      if (breakfast === "") {
-        setError("من فضلك اختار هل ستقدم وجبة افطار للضيوف ام لا ");
-      }
       if (imageUpload === null) {
+        setError("من فضلك اختار الصوره المفضلة لعقارك");
+      } else if (urls.length === 0) {
         setError("من فضلك شارك بعض الصور لمكان الاقامة");
-      }
-      if (loginFrom === "") {
+      } else if (loginFrom === "") {
         setError(" من فضلك ادخل موعد تسجل دخول من");
       } else if (loginTo === "") {
         setError("من فضلك ادخل موعد تسجل دخول الي");
@@ -490,8 +517,7 @@ const AppointmentBooking = () => {
         setError("من فضلك ادخل موعد تسجل الخروج من");
       } else if (logoutTo === "") {
         setError("من فضلك ادخل موعد تسجل الخروج الي");
-      }
-      if (debit === "") {
+      } else if (debit === "") {
         setError("من فضلك هل تريد الخصم من البطاقة الاتمانية ام لا");
       } else if (countryAddressU === "") {
         setError("من فضلك اختار دولتك");
@@ -501,12 +527,52 @@ const AppointmentBooking = () => {
         setError("من فضلك ادخل عنوانك");
       } else if (postalAddressU === "") {
         setError("من فضلك ادخل الرمز البريدي");
-      }
-      if (pet === "") {
+      } else if (promise === "") {
+        setError("من فضلك يجب ان تتعهد بدفع 5 ريال عن كل عملية حجز");
+      } else if (pet === "") {
         setError(
           "من فضلك اختار هل تريد السماح للضيوف باصطحاب الحيوانات الاليفة ام لا"
         );
       } else {
+        const storageRef1 = ref(storage, `drugMain/${imageUpload.name}`);
+        const uploadTask1 = uploadBytesResumable(storageRef1, imageUpload);
+        uploadTask1.on(
+          "state_changed",
+          (snapshot) => {
+            const prog = Math.round(
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+            );
+            setProgress(prog);
+          },
+          (error) => console.log(error),
+          () => {
+            getDownloadURL(uploadTask1.snapshot.ref).then((downloadURL) => {
+              setUrl1(downloadURL);
+            });
+          }
+        );
+
+        for (let i = 0; i < urls.length; i++) {
+          const storageRef = ref(storage, `images/${urls[i].name}`);
+          const uploadTask = uploadBytesResumable(storageRef, urls[i]);
+          uploadTask.on(
+            "state_changed",
+            (snapshot) => {
+              let progress;
+              progress =
+                (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            },
+            (err) => {
+              console.log(err);
+            },
+            () => {
+              getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                setUrl2((state) => [...state, downloadURL]);
+              });
+            }
+          );
+        }
+
         setViewDrug(!viewDrug);
       }
     } else {
@@ -553,8 +619,9 @@ const AppointmentBooking = () => {
             setMultiApartment={setMultiApartment}
             apartment={apartment}
             setNumOfRooms={setNumOfRooms}
+            setClientPhone={setClientPhone}
           />
-
+          <MapLocation position={position} setPosition={setPosition} />
           <Residence
             drug={drug}
             setResidence={setResidence}
@@ -564,7 +631,6 @@ const AppointmentBooking = () => {
             setNumBigBed={setNumBigBed}
             setNumVBigBed={setNumVBigBed}
           />
-
           <Comfort
             drug={drug}
             setConditioning={setConditioning}
@@ -572,14 +638,12 @@ const AppointmentBooking = () => {
             setWifi={setWifi}
             setCarCharge={setCarCharge}
           />
-
           <KitchenAndlaundry
             drug={drug}
             setKitchen={setKitchen}
             setSmallKitchen={setSmallKitchen}
             setWashingMachine={setWashingMachine}
           />
-
           <Entertainment
             drug={drug}
             setFlatTv={setFlatTv}
@@ -588,7 +652,6 @@ const AppointmentBooking = () => {
             setSauna={setSauna}
             setSmallBar={setSmallBar}
           />
-
           <View
             drug={drug}
             setBalcony={setBalcony}
@@ -596,7 +659,6 @@ const AppointmentBooking = () => {
             setHead={setHead}
             setView={setView}
           />
-
           <Breakfast
             drug={drug}
             setBreakfast={setBreakfast}
@@ -605,7 +667,6 @@ const AppointmentBooking = () => {
             lunchBreakfast={lunchBreakfast}
             setBreakfastPrice={setBreakfastPrice}
           />
-
           <Language
             drug={drug}
             setArabic={setArabic}
@@ -614,9 +675,8 @@ const AppointmentBooking = () => {
             setGerman={setGerman}
             setSpanish={setSpanish}
           />
-
           <ImagesMain drug={drug} setImageUpload={setImageUpload} />
-
+          <Images drug={drug} setUrls={setUrls} />
           <CheckIn
             drug={drug}
             setLoginFrom={setLoginFrom}
@@ -624,7 +684,6 @@ const AppointmentBooking = () => {
             setLogoutFrom={setLogoutFrom}
             setLogoutTo={setLogoutTo}
           />
-
           <Payment
             drug={drug}
             setAddressU={setAddressU}
@@ -636,11 +695,33 @@ const AppointmentBooking = () => {
             dataList={dataList}
             countryDrug={countryDrug}
           />
-
           <PetAnimal drug={drug} setPet={setPet} />
-
           <div className="collapsible">
-            {error.length > 0 ? <div className="popup">{error}</div> : null}
+            <input
+              type="checkbox"
+              className="as"
+              id="promise"
+              onChange={() => setPromise("yes")}
+            />
+            <label
+              htmlFor="promise"
+              style={{ fontSize: "14px", fontWeight: "600" }}
+            >
+              اتعهد بدفع مبلغ 5 ريال عن كل عملية حجز تتم عن طريق الموقع Bookme
+              لرقم الحساب المصرفي الدولي التالي SA1510000032900000090010 في
+              البنك الاهلي السعودي لحساب السيد : عبدالرحمن العوفي
+            </label>
+            {error.length > 0 ? (
+              <div
+                className="popup"
+                style={
+                  close === true ? { display: "none" } : { display: "flex" }
+                }
+              >
+                <AiOutlineClose onClick={() => setClose(!close)} />
+                <span>{error}</span>
+              </div>
+            ) : null}
           </div>
 
           <button onClick={handleSubmit}>أتمم عملية التسجيل</button>

@@ -19,9 +19,13 @@ const Entertainment = ({
           {drug === "apartment" ||
           drug === "house" ||
           drug === "hotel" ||
-          drug === "castle" ? (
+          drug === "castle" ||
+          drug === "relaxation" ||
+          drug === "chalet" ||
+          drug === "camp" ||
+          drug === "caravan" ? (
             <>
-              <label>الترفيه</label>
+              <span>الترفيه</span>
               <br />
               <br />
               <input
@@ -29,40 +33,45 @@ const Entertainment = ({
                 onChange={(e) => setFlatTv(e.target.value)}
                 className="as"
                 value="flatTv"
+                id="flatTv"
               />
-              <span>تلفزيون بشاشة مسطحة</span>
+              <label htmlFor="flatTv">تلفزيون بشاشة مسطحة</label>
               <br />
               <input
                 type="checkbox"
                 onChange={(e) => setPool(e.target.value)}
                 className="as"
                 value="pool"
+                id="pool"
               />
-              <span>مسبح</span>
+              <label htmlFor="pool">مسبح</label>
               <br />
               <input
                 type="checkbox"
                 onChange={(e) => setHootTube(e.target.value)}
                 className="as"
                 value="hootTube"
+                id="hootTube"
               />
-              <span> حوض استحمام ساخن </span>
+              <label htmlFor="hootTube"> حوض استحمام ساخن </label>
               <br />
               <input
                 type="checkbox"
                 onChange={(e) => setSmallBar(e.target.value)}
                 className="as"
                 value="smallBar"
+                id="smallBar"
               />
-              <span> ميني بار </span>
+              <label htmlFor="smallBar"> ميني بار </label>
               <br />
               <input
                 type="checkbox"
                 onChange={(e) => setSauna(e.target.value)}
                 className="as"
                 value="sauna"
+                id="sauna"
               />
-              <span> ساونا</span>
+              <label htmlFor="sauna"> ساونا</label>
             </>
           ) : null}
         </div>

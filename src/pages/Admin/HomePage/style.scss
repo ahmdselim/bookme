@@ -1,0 +1,267 @@
+@import "../../variables";
+a {
+  text-decoration: none;
+}
+.switch_box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: auto;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+input[type="checkbox"].switch_1 {
+  padding: 0px !important;
+  font-size: 12px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 3.5em;
+  height: 1.5em;
+  background: #ddd;
+  border-radius: 3em;
+  position: relative;
+  cursor: pointer;
+  outline: none;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  margin-left: 30px;
+}
+input[type="checkbox"].switch_1:checked {
+  background: #0ebeff;
+}
+input[type="checkbox"].switch_1:after {
+  position: absolute;
+  content: "";
+  width: 1.5em;
+  height: 1.5em;
+  border-radius: 50%;
+  background: #fff;
+  -webkit-box-shadow: 0 0 0.25em rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 0.25em rgba(0, 0, 0, 0.3);
+  -webkit-transform: scale(0.7);
+  transform: scale(0.7);
+  left: 0;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+input[type="checkbox"].switch_1:checked:after {
+  left: calc(100% - 1.5em);
+}
+.adminContainer {
+  margin: auto;
+  .adminPage {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-direction: row;
+    flex-wrap: wrap;
+    position: relative;
+    width: 85%;
+    margin: 30px auto;
+
+    .sidebar {
+      background-color: #3f3f46;
+      padding: 10px;
+      border: 1px solid #3f3f46;
+      border-radius: 10px;
+      flex: 1;
+      //   max-width: 30%;
+      //   flex-basis: 30%;
+      margin-left: 2%;
+      h2 {
+        color: #fff;
+      }
+      ul {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        margin: 0;
+        padding: 0;
+        flex-direction: column;
+        width: 100%;
+        a {
+          width: 100%;
+          border-radius: 5px;
+
+          li {
+            padding: 10px;
+            span {
+              color: #fff;
+              font-size: 14px;
+              margin-right: 10px;
+            }
+            svg {
+              color: #fff;
+            }
+          }
+          &:hover {
+            background-color: rgba(165, 161, 161, 0.4);
+          }
+        }
+      }
+    }
+
+    .content {
+      flex: 3;
+      //   max-width: 60%;
+      //   flex-basis: 60%;
+      .row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: row;
+        flex-wrap: wrap;
+        margin: 50px 0;
+        > div.box {
+          background-color: #ddd;
+          max-width: 25%;
+          flex-basis: 25%;
+          //   flex: 1;
+          margin-left: 3%;
+          padding: 10px;
+          border-radius: 5px;
+          margin-bottom: 2%;
+          span {
+            display: block;
+          }
+          div.icon {
+            transform: translate(0px, -25px);
+            width: 30px;
+            padding: 10px;
+            border-radius: 10px;
+            svg {
+              color: #fff;
+              transform: translate(-5px, 0px);
+            }
+            &.icon-1 {
+              background-color: #202022;
+            }
+            &.icon-2 {
+              background-color: #348eed;
+            }
+            &.icon-3 {
+              background-color: #5cb460;
+            }
+            &.icon-4 {
+              background-color: #e63572;
+            }
+          }
+        }
+      }
+      .row-table {
+        flex-wrap: nowrap;
+        // overflow: auto;
+        .tableAdmin {
+          margin-left: 4%;
+          display: table;
+          width: 100%;
+          border-collapse: collapse;
+          border-spacing: 0px;
+          thead {
+            opacity: 1;
+            background: transparent;
+            color: rgb(52, 71, 103);
+            box-shadow: none;
+            tr {
+              text-align: justify;
+              color: inherit;
+              display: table-row;
+              vertical-align: middle;
+              outline: 0px;
+              th {
+                font-size: 13px;
+                width: 45%;
+                padding: 12px 24px;
+                opacity: 1;
+                background: transparent;
+                color: rgb(52, 71, 103);
+                box-shadow: none;
+                border-bottom: 0.0625rem solid rgb(240, 242, 245);
+              }
+            }
+          }
+          tbody {
+            display: table-row-group;
+            tr {
+              color: inherit;
+              display: table-row;
+              vertical-align: middle;
+              outline: 0px;
+              td {
+                text-align: right;
+                padding: 12px 24px;
+                opacity: 1;
+                background: transparent;
+                color: rgb(52, 71, 103);
+                box-shadow: none;
+                border-bottom: 0.0625rem solid rgb(240, 242, 245);
+                font-size: 13px;
+                img {
+                  width: 20px;
+                  height: 20px;
+                  object-fit: cover;
+                  border-radius: 25px;
+                  border: 1px solid #ddd;
+                  // &:first-of-type {
+                  //   transform: translate(0, 0);
+                  // }
+                  // transform: translate(10px, 0);
+                }
+              }
+            }
+          }
+        }
+      }
+      strong {
+        font-size: 14px;
+        text-align: center;
+      }
+    }
+  }
+}
+/* Start Media Query */
+/* Extra small devices (phones, 600px and down) */
+@media only screen and ($ExtraSmallDevices) {
+  .adminContainer {
+    .adminPage {
+      width: 95%;
+      .content {
+        width: 85%;
+        margin: auto;
+        .row {
+          &:first-of-type {
+            flex-direction: row;
+          }
+          flex-direction: row;
+          > div.box {
+            max-width: 100%;
+            flex-basis: 100%;
+            margin-bottom: 5%;
+          }
+        }
+        .row-table {
+          flex-wrap: wrap;
+          .tableAdmin {
+            margin-bottom: 10%;
+          }
+        }
+      }
+    }
+  }
+}
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and ($SmallDevices) {
+}
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and ($MediumDevices) {
+}
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and ($LargeDevices) {
+}
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and ($ExtraLargeDevices) {
+}

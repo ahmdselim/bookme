@@ -13,7 +13,11 @@ const Head = () => {
           drug.map((data, i) => (
             <li key={i}>
               <div className="overlay"></div>
-              <img src={img1} alt="Explorer" />
+              <img
+                style={{ height: "190px", objectFit: "cover" }}
+                src={data.data.mainImage}
+                alt="Explorer"
+              />
               <div className="data">
                 <img
                   className="imageCountry"
@@ -24,7 +28,6 @@ const Head = () => {
                 </Link>
 
                 <br />
-                <span>897 عقار</span>
               </div>
             </li>
           ))}

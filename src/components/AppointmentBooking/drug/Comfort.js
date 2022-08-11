@@ -18,9 +18,13 @@ const Comfort = ({
           {drug === "apartment" ||
           drug === "house" ||
           drug === "hotel" ||
-          drug === "castle" ? (
+          drug === "castle" ||
+          drug === "relaxation" ||
+          drug === "chalet" ||
+          drug === "camp" ||
+          drug === "caravan" ? (
             <>
-              <label>وسائل الراحة العامّة</label>
+              <span>وسائل الراحة العامّة</span>
               <br />
               <br />
               <input
@@ -28,32 +32,36 @@ const Comfort = ({
                 onChange={(e) => setConditioning(e.target.value)}
                 className="as"
                 value="conditioning"
+                id="conditioning"
               />
-              <span>تكييف</span>
+              <label htmlFor="conditioning">تكييف</label>
               <br />
               <input
                 type="checkbox"
                 onChange={(e) => setHeating(e.target.value)}
                 className="as"
                 value="heating"
+                id="heating"
               />
-              <span>تدفئة</span>
+              <label htmlFor="heating">تدفئة</label>
               <br />
               <input
                 type="checkbox"
                 onChange={(e) => setWifi(e.target.value)}
                 className="as"
                 value="wifi"
+                id="wifi"
               />
-              <span>واي فاي مجاني</span>
+              <label htmlFor="wifi">واي فاي مجاني</label>
               <br />
               <input
                 type="checkbox"
                 onChange={(e) => setCarCharge(e.target.value)}
                 className="as"
                 value="carCharge"
+                id="carCharge"
               />
-              <span>محطة شحن السيارات الكهربائية</span>
+              <label htmlFor="carCharge">محطة شحن السيارات الكهربائية</label>
             </>
           ) : null}
         </div>

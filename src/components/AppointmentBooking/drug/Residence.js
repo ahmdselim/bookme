@@ -14,48 +14,57 @@ const Residence = ({
       drug === "apartment" ||
       drug === "house" ||
       drug === "hotel" ||
-      drug === "castle"
+      drug === "castle" ||
+      drug === "relaxation" ||
+      drug === "chalet" ||
+      drug === "camp" ||
+      drug === "caravan"
     ) {
       if (residence === "bedroom") {
         return (
           <>
-            <label>سرير فردي</label>
+            <label htmlFor="singleBed">سرير فردي</label>
             <br />
             <input
               type="number"
               onChange={(e) => setNumSingleBed(e.target.value)}
+              id="singleBed"
             />
             <br />
-            <label>سرير مزدوج</label>
+            <label htmlFor="doubleBed">سرير مزدوج</label>
             <br />
             <input
               type="number"
               onChange={(e) => setNumDoubleBed(e.target.value)}
+              id="doubleBed"
             />
             <br />
-            <label>سرير كبير</label>
+            <label htmlFor="bigBed">سرير كبير</label>
             <br />
             <input
               type="number"
               onChange={(e) => setNumBigBed(e.target.value)}
+              id="bigBed"
             />
             <br />
-            <label>سرير كبير جدا</label>
+            <label htmlFor="VBigBed">سرير كبير جدا</label>
             <br />
             <input
               type="number"
               onChange={(e) => setNumVBigBed(e.target.value)}
+              id="VBigBed"
             />
           </>
         );
       } else if (residence === "livingroom") {
         return (
           <>
-            <label>سرير فردي</label>
+            <label htmlFor="singleBed">سرير فردي</label>
             <br />
             <input
               type="number"
               onChange={(e) => setNumSingleBed(e.target.value)}
+              id="singleBed"
             />
           </>
         );
@@ -70,7 +79,14 @@ const Residence = ({
           تفاصيل مكان الإقامة
         </label>
         <div className="collapsible-text">
-          {drug === "house" || drug === "hotel" || drug === "castle" ? (
+          {drug === "house" ||
+          drug === "hotel" ||
+          drug === "castle" ||
+          drug === "apartment" ||
+          drug === "relaxation" ||
+          drug === "chalet" ||
+          drug === "camp" ||
+          drug === "caravan" ? (
             <select onChange={(e) => setResidence(e.target.value)}>
               <option>أين يمكن للضيوف النوم ؟</option>
 
@@ -83,7 +99,11 @@ const Residence = ({
           {drug === "apartment" ||
           drug === "house" ||
           drug === "hotel" ||
-          drug === "castle"
+          drug === "castle" ||
+          drug === "relaxation" ||
+          drug === "chalet" ||
+          drug === "camp" ||
+          drug === "caravan"
             ? showResidence()
             : null}
         </div>
